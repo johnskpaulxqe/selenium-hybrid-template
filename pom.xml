@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  FILE: pom.xml
+  PURPOSE:
+    Maven build descriptor for the Selenium Cucumber Hybrid
+    Framework. Declares all dependencies, plugin configuration,
+    and build properties in one place.
+
+  HOW TO USE:
+    - Run a specific runner : mvn test -Dtest=SmokeTestRunner
+    - Run by tag            : mvn test -Dcucumber.filter.tags="@smoke"
+    - Run with browser      : mvn test -Dbrowser=headless
+    - Run with environment  : mvn test -Denv=staging
+    - Full suite            : mvn test -Dtest=FullSuiteRunner
+
+  TODO (customise per project):
+    - TODO-1  : Change <groupId> to your organisation's group ID
+    - TODO-2  : Change <artifactId> to your project name
+    - TODO-3  : Confirm Java version matches your team's JDK (set to 25)
+    - TODO-4  : If not using MySQL, swap the JDBC driver dependency
+    - TODO-5  : Adjust <suiteXmlFile> if you rename testng.xml
+  ============================================================
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ── Project identity ──────────────────────────────────── -->
+    <!-- TODO-1: Replace with your organisation's reverse-domain group ID -->
+    <groupId>com.yourorg</groupId>
+    <!-- TODO-2: Replace with your project / application name   -->
+    <artifactId>selenium-hybrid-template</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Selenium Cucumber Hybrid Framework Template</name>
+    <description>
+        Reusable BDD hybrid framework covering UI (Selenium),
+        API (RestAssured), and DB (JDBC/MySQL) testing layers.
+    </description>
+
+    <!-- ── Central version properties ───────────────────────── -->
+    <!-- Keeping versions here makes upgrades a one-line change  -->
+    <properties>
+        <!-- TODO-3: Must match the JDK installed on all developer machines and CI agents -->
+        <java.version>25</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Core framework versions -->
+        <cucumber.version>7.18.0</cucumber.version>
+        <testng.version>7.10.2</testng.version>
+        <selenium.version>4.21.0</selenium.version>
+        <webdrivermanager.version>5.8.0</webdrivermanager.version>
+
+        <!-- API testing -->
+        <restassured.version>5.4.0</restassured.version>
+
+        <!-- Database -->
+        <!-- TODO-4: Swap this version or replace the dependency below for Oracle / MSSQL / Postgres -->
+        <mysql.connector.version>8.4.0</mysql.connector.version>
+
+        <!-- Reporting -->
+        <extentreports.version>5.1.1</extentreports.version>
+        <cucumber.extentreport.version>1.14.0</cucumber.extentreport.version>
+
+        <!-- Logging -->
+        <slf4j.version>2.0.13</slf4j.version>
+        <logback.version>1.5.6</logback.version>
+
+        <!-- Utilities -->
+        <jackson.version>2.17.1</jackson.version>
+        <lombok.version>1.18.32</lombok.version>
+
+        <!-- Plugin versions -->
+        <maven.surefire.version>3.2.5</maven.surefire.version>
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
+
+        <!-- ── Runtime-overridable properties ────────────────── -->
+        <!-- These can all be overridden on the CLI, e.g.: mvn test -Denv=staging -->
+        <env>dev</env>
+        <browser>headless</browser>
+        <threads>1</threads>
+        <!-- TODO-5: Change this path if you rename testng.xml -->
+        <suiteXmlFile>testng.xml</suiteXmlFile>
+    </properties>
+
+    <!-- ── Dependencies ──────────────────────────────────────── -->
+    <dependencies>
+
+        <!-- ════════════════════════════════════════════════════
+             BDD — Cucumber 7
+             All cucumber-* artefacts must be the same version.
+             cucumber-testng wires Cucumber into the TestNG runner.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- Cucumber dependency injection — shares state between step definition classes -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             Test Framework — TestNG
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             UI Testing — Selenium WebDriver 4
+             WebDriverManager auto-downloads the correct browser driver.
+             No need to manage chromedriver / geckodriver manually.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             API Testing — RestAssured 5
+             json-schema-validator enables JSON schema assertions.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             Database — JDBC + MySQL Connector
+             TODO-4: Replace with the correct driver for your DB:
+               PostgreSQL : org.postgresql / postgresql / 42.7.3
+               Oracle     : com.oracle.database.jdbc / ojdbc11 / 23.4.0.24.05
+               SQL Server : com.microsoft.sqlserver / mssql-jdbc / 12.6.2.jre11
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             Reporting — Extent Reports 5
+             tech.grasshopper adapter bridges Cucumber 7 to Extent.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>tech.grasshopper</groupId>
+            <artifactId>extentreports-cucumber7-adapter</artifactId>
+            <version>${cucumber.extentreport.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             Logging — SLF4J API + Logback implementation
+             SLF4J is the facade; Logback is the backend.
+             logback-classic pulls in logback-core automatically.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             JSON — Jackson (config + test data parsing)
+             ObjectMapper reads config.json and testdata files.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- Enables reading JSON arrays and objects as Java types -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             Lombok — reduces boilerplate (getters, constructors, builders)
+             Requires the Lombok plugin in IntelliJ / Eclipse.
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- ════════════════════════════════════════════════════
+             Apache Commons IO — file utilities (screenshot saving etc.)
+        ════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <!-- ── Build plugins ─────────────────────────────────────── -->
+    <build>
+        <plugins>
+
+            <!-- ══════════════════════════════════════════════════
+                 Maven Compiler Plugin
+                 Compiles Java source at the version set in properties.
+            ══════════════════════════════════════════════════ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- ══════════════════════════════════════════════════
+                 Maven Surefire Plugin 3.x
+                 Runs TestNG suites. The <suiteXmlFile> points to
+                 testng.xml which wires up all five runners.
+
+                 Key settings:
+                   argLine           : extra JVM flags (memory, encoding)
+                   systemPropertyVariables : passes -D flags into tests
+                   parallel / threadCount : controlled via testng.xml,
+                                            but can be overridden here
+            ══════════════════════════════════════════════════ -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+
+                    <!-- Point at the TestNG suite file -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- Pass runtime properties into every test as system properties -->
+                    <!-- Access these in Java via System.getProperty("env") etc.      -->
+                    <systemPropertyVariables>
+                        <env>${env}</env>
+                        <browser>${browser}</browser>
+                        <threads>${threads}</threads>
+                        <!-- Cucumber tag override — set from CLI with -Dcucumber.filter.tags="@smoke" -->
+                        <cucumber.filter.tags>${cucumber.filter.tags}</cucumber.filter.tags>
+                    </systemPropertyVariables>
+
+                    <!-- Memory: increase if running large parallel suites -->
+                    <argLine>-Xmx1024m -Dfile.encoding=UTF-8</argLine>
+
+                    <!-- Do not fail the build if no tests match the tag filter -->
+                    <!-- This prevents CI failures when a runner has 0 matching scenarios -->
+                    <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
+
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+        <!-- Ensure feature files and resources are on the test classpath -->
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.json</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.feature</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </testResource>
+        </testResources>
+
+    </build>
+
+</project>
