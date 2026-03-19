@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  FILE: testng.xml
+  LOCATION: project root (same level as pom.xml)
+
+  PURPOSE:
+    TestNG master suite file. Wires all five Cucumber runners
+    into a single executable suite. Each runner maps to a
+    dedicated <test> block with its own thread count and
+    parallel mode setting.
+
+  HOW TO USE:
+    Run the full suite:
+      mvn test
+
+    Run a single runner by name:
+      mvn test -Dtest=SmokeTestRunner
+
+    Override tags at runtime (applies to whichever runner is active):
+      mvn test -Dcucumber.filter.tags="@smoke and not @wip"
+
+    Override thread count:
+      mvn test -Dthreads=4
+
+  PARALLEL MODES (set on <suite> or per <test>):
+    methods  → each @Test method runs in its own thread
+    classes  → each runner class gets its own thread
+    tests    → each <test> block runs in its own thread
+    none     → sequential (safe default)
+
+  TODO (customise per project):
+    - TODO-1 : Change suite name to your project name
+    - TODO-2 : Adjust parallel mode and thread counts per runner
+    - TODO-3 : Comment out any runners not needed for your project
+    - TODO-4 : Add new <test> blocks for any additional runners
+    - TODO-5 : Set verbose="2" for more TestNG console output
+                during debugging, revert to "1" for CI
+  ============================================================
+-->
+
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+  suite-level settings:
+    name       → displayed in TestNG reports
+    verbose    → 1=normal, 2=debug, 0=silent
+    parallel   → "tests" runs each <test> block in its own thread
+    thread-count → max concurrent threads across ALL <test> blocks
+-->
+<!-- TODO-1: Rename to your project, e.g. "Acme App Test Suite" -->
+<suite name="Selenium Hybrid Framework Suite"
+       verbose="1"
+       parallel="tests"
+       thread-count="5">
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      LISTENER — ExtentReportManager
+      Hooks into TestNG lifecycle to open/close the Extent report.
+      Must be declared here so it fires once for the whole suite,
+      not once per runner.
+      ══════════════════════════════════════════════════════════
+    -->
+    <listeners>
+        <!-- TODO-3: Update package if you moved ExtentReportManager -->
+        <listener class-name="utils.ExtentReportManager" />
+    </listeners>
+
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      TEST BLOCK 1 — Smoke Runner
+      Tag filter  : @smoke
+      Purpose     : Fast sanity check — critical path only.
+                    Runs on every push and every PR in CI.
+      Threads     : 2 (smoke suite is small — 2 is plenty)
+      ══════════════════════════════════════════════════════════
+    -->
+    <test name="Smoke Tests"
+          parallel="methods"
+          thread-count="2">
+        <!-- TODO-3: Comment out this block if you have no smoke tests yet -->
+        <classes>
+            <class name="runners.SmokeTestRunner" />
+        </classes>
+    </test>
+
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      TEST BLOCK 2 — Regression Runner
+      Tag filter  : @regression
+      Purpose     : Full regression suite.
+                    Runs nightly and on release branches.
+      Threads     : 4 (increase for large suites)
+      ══════════════════════════════════════════════════════════
+    -->
+    <test name="Regression Tests"
+          parallel="methods"
+          thread-count="4">
+        <!-- TODO-2: Increase thread-count if your regression suite is large -->
+        <classes>
+            <class name="runners.RegressionTestRunner" />
+        </classes>
+    </test>
+
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      TEST BLOCK 3 — API Runner
+      Tag filter  : @api
+      Purpose     : All REST API contract and integration tests.
+                    No browser needed — runs fast.
+      Threads     : 4 (API tests are stateless — safe to parallelise)
+      ══════════════════════════════════════════════════════════
+    -->
+    <test name="API Tests"
+          parallel="methods"
+          thread-count="4">
+        <!-- TODO-3: Comment out if your project has no API testing layer -->
+        <classes>
+            <class name="runners.ApiTestRunner" />
+        </classes>
+    </test>
+
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      TEST BLOCK 4 — Database Runner
+      Tag filter  : @db
+      Purpose     : Database state validation tests via JDBC.
+      Threads     : 2 (keep low to avoid DB connection pool exhaustion)
+      ══════════════════════════════════════════════════════════
+    -->
+    <test name="Database Tests"
+          parallel="methods"
+          thread-count="2">
+        <!--
+          TODO-2: Keep thread-count low (1-2) to avoid exhausting
+                  the DB connection pool on shared test environments.
+          TODO-3: Comment out if your project has no DB testing layer.
+        -->
+        <classes>
+            <class name="runners.DbTestRunner" />
+        </classes>
+    </test>
+
+
+    <!--
+      ══════════════════════════════════════════════════════════
+      TEST BLOCK 5 — Full Suite Runner
+      Tag filter  : none (runs everything)
+      Purpose     : Complete test execution.
+                    Used for nightly builds and release validation.
+      Threads     : 4
+      ══════════════════════════════════════════════════════════
+    -->
+    <test name="Full Suite"
+          parallel="methods"
+          thread-count="4">
+        <!--
+          TODO-4: This runner has no tag filter — it runs ALL scenarios.
+                  Only include this block in your nightly CI pipeline,
+                  not on every push (it will duplicate smoke/regression).
+        -->
+        <classes>
+            <class name="runners.FullSuiteRunner" />
+        </classes>
+    </test>
+
+
+</suite>
+
+        <!--
+          ══════════════════════════════════════════════════════════════
+          EXAMPLE: How to run individual suites from Maven without
+                   changing this file:
+
+          # Run only smoke tests (by runner class name):
+          mvn test -Dtest=SmokeTestRunner
+
+          # Run only API tests:
+          mvn test -Dtest=ApiTestRunner
+
+          # Run smoke + API together:
+          mvn test -Dtest="SmokeTestRunner,ApiTestRunner"
+
+          # Override tags across all runners:
+          mvn test -Dcucumber.filter.tags="@smoke or @api"
+
+          # Run full suite nightly with 4 threads:
+          mvn test -Dtest=FullSuiteRunner -Dthreads=4
+
+          # Run in headless mode on staging:
+          mvn test -Denv=staging -Dbrowser=headless
+          ══════════════════════════════════════════════════════════════
+        -->
