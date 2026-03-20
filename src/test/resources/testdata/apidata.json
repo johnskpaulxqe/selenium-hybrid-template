@@ -1,0 +1,93 @@
+{
+  "_comment": "=================================================================",
+  "_comment1": "FILE: apidata.json",
+  "_comment2": "PURPOSE: API endpoint paths, headers, and request body templates.",
+  "_comment3": "         Accessed via TestDataLoader.getApiEndpoint('login') etc.",
+  "_comment4": "TODO: Replace all values with your application's API details.",
+  "_comment5": "=================================================================",
+
+  "endpoints": {
+    "_comment": "TODO: Replace with your application's API endpoint paths",
+    "login":         "/api/v1/auth/login",
+    "logout":        "/api/v1/auth/logout",
+    "getUsers":      "/api/v1/users",
+    "getUserById":   "/api/v1/users/{id}",
+    "createUser":    "/api/v1/users",
+    "updateUser":    "/api/v1/users/{id}",
+    "deleteUser":    "/api/v1/users/{id}",
+    "getProducts":   "/api/v1/products",
+    "healthCheck":   "/api/v1/health"
+  },
+
+  "headers": {
+    "_comment": "TODO: Add any custom headers your API requires",
+    "Content-Type":  "application/json",
+    "Accept":        "application/json"
+  },
+
+  "auth": {
+    "_comment": "TODO: Set a static token for environments that use fixed test tokens",
+    "staticToken":   "Bearer test-token-replace-me",
+    "tokenPrefix":   "Bearer"
+  },
+
+  "requestBodies": {
+    "_comment": "TODO: Replace with real request body templates for your API",
+
+    "login": {
+      "username": "admin@yourapp.com",
+      "password": "Admin@123"
+    },
+
+    "createUser": {
+      "username":  "newuser@yourapp.com",
+      "password":  "NewUser@123",
+      "email":     "newuser@yourapp.com",
+      "firstName": "New",
+      "lastName":  "User",
+      "role":      "USER"
+    },
+
+    "updateUser": {
+      "firstName": "Updated",
+      "lastName":  "Name"
+    }
+  },
+
+  "expectedResponses": {
+    "_comment": "TODO: Add expected response field values for assertions",
+
+    "login": {
+      "statusCode":    200,
+      "tokenField":    "token",
+      "userIdField":   "userId"
+    },
+
+    "getUsers": {
+      "statusCode":    200,
+      "dataArrayKey":  "data"
+    },
+
+    "notFound": {
+      "statusCode":    404,
+      "messageField":  "message"
+    },
+
+    "unauthorized": {
+      "statusCode":    401,
+      "messageField":  "message"
+    }
+  },
+
+  "pagination": {
+    "defaultLimit":  10,
+    "maxLimit":      100,
+    "defaultPage":   1
+  },
+
+  "timeouts": {
+    "_comment": "API-specific timeout overrides in milliseconds",
+    "connection":    10000,
+    "read":          30000
+  }
+}

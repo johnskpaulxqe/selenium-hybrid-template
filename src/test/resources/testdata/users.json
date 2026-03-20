@@ -1,0 +1,60 @@
+{
+  "_comment": "=================================================================",
+  "_comment1": "FILE: users.json",
+  "_comment2": "PURPOSE: Test user credentials and profile data.",
+  "_comment3": "         Accessed via TestDataLoader.getUser('admin') etc.",
+  "_comment4": "TODO: Replace all values with your application's test users.",
+  "_comment5": "      Never store real production credentials here.",
+  "_comment6": "=================================================================",
+
+  "admin": {
+    "_comment": "TODO: Replace with your admin test user credentials",
+    "username":   "admin@yourapp.com",
+    "password":   "Admin@123",
+    "email":      "admin@yourapp.com",
+    "firstName":  "Admin",
+    "lastName":   "User",
+    "role":       "ADMIN",
+    "active":     true
+  },
+
+  "standard": {
+    "_comment": "TODO: Replace with your standard test user credentials",
+    "username":   "user@yourapp.com",
+    "password":   "User@123",
+    "email":      "user@yourapp.com",
+    "firstName":  "Standard",
+    "lastName":   "User",
+    "role":       "USER",
+    "active":     true
+  },
+
+  "readonly": {
+    "_comment": "TODO: Replace with a read-only test user if your app has one",
+    "username":   "readonly@yourapp.com",
+    "password":   "Readonly@123",
+    "email":      "readonly@yourapp.com",
+    "firstName":  "ReadOnly",
+    "lastName":   "User",
+    "role":       "READONLY",
+    "active":     true
+  },
+
+  "locked": {
+    "_comment": "TODO: A locked/disabled account for negative test scenarios",
+    "username":   "locked@yourapp.com",
+    "password":   "Locked@123",
+    "email":      "locked@yourapp.com",
+    "firstName":  "Locked",
+    "lastName":   "User",
+    "role":       "USER",
+    "active":     false
+  },
+
+  "invalidCredentials": {
+    "_comment": "Used for negative login test scenarios",
+    "username":   "invalid@yourapp.com",
+    "password":   "WrongPassword123",
+    "email":      "invalid@yourapp.com"
+  }
+}
