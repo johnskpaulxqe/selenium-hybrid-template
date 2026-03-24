@@ -1,20 +1,277 @@
-# Placeholder — full pipeline built in Phase 9 (Step 35)
-# See docs/HOW_TO_USE.md for CI/CD setup instructions
-name: CI Pipeline
+# ============================================================
+# FILE: github-actions.yml
+# LOCATION: .github/workflows/github-actions.yml
+#
+# PURPOSE:
+#   GitHub Actions CI/CD pipeline for the Selenium Hybrid
+#   Framework. Multi-job pipeline covering build, smoke,
+#   API, regression, and DB test stages.
+#
+# PREREQUISITES IN GITHUB:
+#   Add these repository secrets (Settings → Secrets):
+#     DB_URL    → jdbc:mysql://your-db:3306/yourdb
+#     DB_USER   → your_db_username
+#     DB_PASS   → your_db_password
+#
+# TODO (customise per project):
+#   - TODO-1 : Update JAVA_VERSION if your team moves JDKs
+#   - TODO-2 : Add deployment job after regression if needed
+#   - TODO-3 : Add Slack/Teams notification on failure
+# ============================================================
+
+name: Selenium Hybrid Framework CI
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: 'Runner to execute'
+        required: false
+        default: 'SmokeTestRunner'
+      environment:
+        description: 'Target environment (dev / staging)'
+        required: false
+        default: 'dev'
+
+env:
+  # TODO-1: Update to match your JDK version
+  JAVA_VERSION: '25'
+  JAVA_DISTRIBUTION: 'temurin'
+  MAVEN_OPTS: '-Xmx1024m -Dfile.encoding=UTF-8'
+
 jobs:
-  smoke:
+
+  # ── Build ──────────────────────────────────────────────────
+  build:
+    name: Build — Compile & Validate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up JDK 17
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: maven
+
+      - name: Compile project
+        run: mvn test-compile -DskipTests ${{ env.MAVEN_OPTS }}
+
+
+  # ── Smoke Tests ────────────────────────────────────────────
+  smoke:
+    name: Smoke Tests — Critical Path
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: maven
+
+      - name: Install Google Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          sudo apt-get update && sudo apt-get install -y google-chrome-stable
+
       - name: Run Smoke Tests
-        run: mvn test -Dtest=SmokeTestRunner -Dbrowser=headless
+        run: |
+          mvn test \
+            -Dtest=SmokeTestRunner \
+            -Dbrowser=headless \
+            -Denv=dev \
+            -DDB_URL=${{ secrets.DB_URL }} \
+            -DDB_USER=${{ secrets.DB_USER }} \
+            -DDB_PASS=${{ secrets.DB_PASS }} \
+            ${{ env.MAVEN_OPTS }}
+
+      - name: Publish Cucumber Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-cucumber-report
+          path: target/cucumber-reports/smoke/
+          retention-days: 7
+
+      - name: Publish Extent Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-extent-report
+          path: target/extent-reports/
+          retention-days: 7
+
+      - name: Publish Failure Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: smoke-screenshots
+          path: target/screenshots/
+          retention-days: 7
+
+      - name: Publish JUnit Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Smoke Test Results
+          path: target/cucumber-reports/smoke/cucumber.xml
+          reporter: java-junit
+          fail-on-error: false
+
+
+  # ── API Tests ─────────────────────────────────────────────
+  api:
+    name: API Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: maven
+
+      - name: Run API Tests
+        run: |
+          mvn test \
+            -Dtest=ApiTestRunner \
+            -Denv=dev \
+            -DDB_URL=${{ secrets.DB_URL }} \
+            -DDB_USER=${{ secrets.DB_USER }} \
+            -DDB_PASS=${{ secrets.DB_PASS }} \
+            ${{ env.MAVEN_OPTS }}
+
+      - name: Publish API Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-report
+          path: target/cucumber-reports/api/
+          retention-days: 7
+
+      - name: Publish JUnit Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: API Test Results
+          path: target/cucumber-reports/api/cucumber.xml
+          reporter: java-junit
+          fail-on-error: false
+
+
+  # ── Regression Tests (nightly + manual only) ──────────────
+  regression:
+    name: Regression — Full UI Suite
+    runs-on: ubuntu-latest
+    needs: [ smoke, api ]
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: maven
+
+      - name: Install Google Chrome
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          sudo apt-get update && sudo apt-get install -y google-chrome-stable
+
+      - name: Run Regression Tests
+        run: |
+          mvn test \
+            -Dtest=RegressionTestRunner \
+            -Dbrowser=headless \
+            -Denv=dev \
+            ${{ env.MAVEN_OPTS }}
+
+      - name: Publish Regression Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-report
+          path: target/cucumber-reports/regression/
+          retention-days: 14
+
+      - name: Publish Extent Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-extent-report
+          path: target/extent-reports/
+          retention-days: 14
+
+      - name: Publish Failure Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: regression-screenshots
+          path: target/screenshots/
+          retention-days: 7
+
+      # TODO-3: Uncomment to add Slack notification on failure
+      # - name: Notify Slack on failure
+      #   if: failure()
+      #   uses: slackapi/slack-github-action@v1
+      #   with:
+      #     payload: '{"text":"❌ Regression failed on ${{ github.ref }}"}'
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+
+  # ── DB Tests (nightly + manual only) ──────────────────────
+  db:
+    name: Database Tests
+    runs-on: ubuntu-latest
+    needs: build
+    if: |
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          cache: maven
+
+      - name: Run DB Tests
+        run: |
+          mvn test \
+            -Dtest=DbTestRunner \
+            -Denv=dev \
+            -DDB_URL=${{ secrets.DB_URL }} \
+            -DDB_USER=${{ secrets.DB_USER }} \
+            -DDB_PASS=${{ secrets.DB_PASS }} \
+            ${{ env.MAVEN_OPTS }}
+
+      - name: Publish DB Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: db-test-report
+          path: target/cucumber-reports/db/
+          retention-days: 7

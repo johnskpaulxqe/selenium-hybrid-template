@@ -1,0 +1,363 @@
+# ============================================================
+# FILE: azure-pipelines.yml
+# LOCATION: project root (same level as pom.xml)
+#
+# PURPOSE:
+#   Azure DevOps CI/CD pipeline for the Selenium Hybrid
+#   Framework. Defines three stages:
+#     1. Build     → compile and validate
+#     2. Smoke     → fast critical path tests on every PR
+#     3. Regression → full suite on nightly schedule
+#
+# TRIGGERS:
+#   - Push / PR to main branch → Build + Smoke
+#   - Nightly schedule         → Build + Smoke + Regression
+#
+# PREREQUISITES IN AZURE DEVOPS:
+#   1. Create a pipeline pointing to this file
+#   2. Add these secret variables in Pipeline → Variables:
+#        DB_URL      → jdbc:mysql://your-db:3306/yourdb
+#        DB_USER     → your_db_username
+#        DB_PASS     → your_db_password
+#   3. Ensure the agent pool has Java 25 and Chrome available
+#      or use the ubuntu-latest Microsoft-hosted agent
+#
+# TODO (customise per project):
+#   - TODO-1 : Change vmImage if your org uses self-hosted agents
+#   - TODO-2 : Update JAVA_VERSION if your team moves to a newer JDK
+#   - TODO-3 : Add deployment stages after Regression if needed
+#   - TODO-4 : Update notification settings (Slack/Teams/email)
+#   - TODO-5 : Add SonarQube or code quality stage if required
+# ============================================================
+
+# ── Triggers ─────────────────────────────────────────────────
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+      # TODO-1: Add your release branch pattern if needed
+      # - release/*
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+
+# ── Nightly schedule ──────────────────────────────────────────
+schedules:
+  - cron: "0 1 * * *"          # 01:00 UTC every day
+    displayName: Nightly Regression Run
+    branches:
+      include:
+        - main
+    always: true                # Run even if no code changes
+
+
+# ── Global variables ─────────────────────────────────────────
+variables:
+  # TODO-2: Update to match your JDK version
+  JAVA_VERSION: '25'
+  MAVEN_OPTS: '-Xmx1024m -Dfile.encoding=UTF-8'
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS_CACHE: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+
+
+# ── Stages ───────────────────────────────────────────────────
+stages:
+
+  # ══════════════════════════════════════════════════════════
+  # STAGE 1 — BUILD
+  # Compiles the project and validates dependencies.
+  # Runs on every push and PR.
+  # ══════════════════════════════════════════════════════════
+  - stage: Build
+    displayName: 'Build — Compile & Validate'
+    jobs:
+      - job: CompileJob
+        displayName: 'Compile Project'
+        # TODO-1: Change to your self-hosted agent pool if needed
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+
+          # Cache Maven dependencies to speed up builds
+          - task: Cache@2
+            displayName: 'Cache Maven dependencies'
+            inputs:
+              key: 'maven | "$(Agent.OS)" | pom.xml'
+              restoreKeys: |
+                maven | "$(Agent.OS)"
+                maven
+              path: $(MAVEN_CACHE_FOLDER)
+
+          # Set up JDK
+          - task: JavaToolInstaller@0
+            displayName: 'Install JDK $(JAVA_VERSION)'
+            inputs:
+              versionSpec: '$(JAVA_VERSION)'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+
+          # Compile source + test code — validates all imports resolve
+          - task: Maven@4
+            displayName: 'Compile & Test-Compile'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'test-compile'
+              options: '$(MAVEN_OPTS_CACHE) -DskipTests'
+              publishJUnitResults: false
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.$(JAVA_VERSION)'
+
+          # Publish compiled artifact for downstream stages
+          - publish: $(System.DefaultWorkingDirectory)
+            artifact: compiled-source
+            displayName: 'Publish compiled source'
+
+
+  # ══════════════════════════════════════════════════════════
+  # STAGE 2 — SMOKE TESTS
+  # Fast critical path validation.
+  # Runs on every push and PR — must pass before merge.
+  # ══════════════════════════════════════════════════════════
+  - stage: Smoke
+    displayName: 'Smoke Tests — Critical Path'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: SmokeJob
+        displayName: 'Run Smoke Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+
+          # Cache Maven dependencies
+          - task: Cache@2
+            displayName: 'Cache Maven dependencies'
+            inputs:
+              key: 'maven | "$(Agent.OS)" | pom.xml'
+              restoreKeys: |
+                maven | "$(Agent.OS)"
+                maven
+              path: $(MAVEN_CACHE_FOLDER)
+
+          # Install JDK
+          - task: JavaToolInstaller@0
+            displayName: 'Install JDK $(JAVA_VERSION)'
+            inputs:
+              versionSpec: '$(JAVA_VERSION)'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+
+          # Install Chrome for headless UI tests
+          - script: |
+              wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+              sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+              sudo apt-get update
+              sudo apt-get install -y google-chrome-stable
+              google-chrome --version
+            displayName: 'Install Google Chrome'
+
+          # Run Smoke tests
+          # DB credentials injected from Azure DevOps secret variables
+          - task: Maven@4
+            displayName: 'Run SmokeTestRunner'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'test'
+              # TODO-3: Add -Denv=staging for staging environment runs
+              options: >
+                $(MAVEN_OPTS_CACHE)
+                -Dtest=SmokeTestRunner
+                -Dbrowser=headless
+                -Denv=dev
+                -DDB_URL=$(DB_URL)
+                -DDB_USER=$(DB_USER)
+                -DDB_PASS=$(DB_PASS)
+              publishJUnitResults: true
+              testResultsFiles: '**/cucumber-reports/smoke/cucumber.xml'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.$(JAVA_VERSION)'
+
+          # Publish Cucumber HTML report as pipeline artifact
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Smoke Cucumber Report'
+            condition: always()
+            inputs:
+              targetPath: 'target/cucumber-reports/smoke'
+              artifact: 'smoke-cucumber-report'
+              publishLocation: 'pipeline'
+
+          # Publish Extent HTML report as pipeline artifact
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Smoke Extent Report'
+            condition: always()
+            inputs:
+              targetPath: 'target/extent-reports'
+              artifact: 'smoke-extent-report'
+              publishLocation: 'pipeline'
+
+          # Publish screenshots on failure
+          - task: PublishPipelineArtifact@1
+            displayName: 'Publish Failure Screenshots'
+            condition: failed()
+            inputs:
+              targetPath: 'target/screenshots'
+              artifact: 'smoke-screenshots'
+              publishLocation: 'pipeline'
+
+
+  # ══════════════════════════════════════════════════════════
+  # STAGE 3 — REGRESSION
+  # Full regression suite — runs nightly only.
+  # Condition: only on scheduled runs (not PR/push).
+  # ══════════════════════════════════════════════════════════
+  - stage: Regression
+    displayName: 'Regression — Full Suite'
+    dependsOn: Smoke
+    # Only run on nightly schedule — skip for PR/push builds
+    condition: and(succeeded(), eq(variables['Build.Reason'], 'Schedule'))
+    jobs:
+
+      # ── API Tests ─────────────────────────────────────────
+      - job: ApiRegressionJob
+        displayName: 'Run API Regression Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - task: Cache@2
+            inputs:
+              key: 'maven | "$(Agent.OS)" | pom.xml'
+              restoreKeys: |
+                maven | "$(Agent.OS)"
+              path: $(MAVEN_CACHE_FOLDER)
+
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '$(JAVA_VERSION)'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+
+          - task: Maven@4
+            displayName: 'Run ApiTestRunner'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'test'
+              options: >
+                $(MAVEN_OPTS_CACHE)
+                -Dtest=ApiTestRunner
+                -Denv=dev
+                -DDB_URL=$(DB_URL)
+                -DDB_USER=$(DB_USER)
+                -DDB_PASS=$(DB_PASS)
+              publishJUnitResults: true
+              testResultsFiles: '**/cucumber-reports/api/cucumber.xml'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.$(JAVA_VERSION)'
+
+          - task: PublishPipelineArtifact@1
+            condition: always()
+            inputs:
+              targetPath: 'target/cucumber-reports/api'
+              artifact: 'api-regression-report'
+
+      # ── UI Regression Tests ───────────────────────────────
+      - job: UiRegressionJob
+        displayName: 'Run UI Regression Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - task: Cache@2
+            inputs:
+              key: 'maven | "$(Agent.OS)" | pom.xml'
+              restoreKeys: |
+                maven | "$(Agent.OS)"
+              path: $(MAVEN_CACHE_FOLDER)
+
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '$(JAVA_VERSION)'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+
+          - script: |
+              wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+              sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+              sudo apt-get update && sudo apt-get install -y google-chrome-stable
+            displayName: 'Install Google Chrome'
+
+          - task: Maven@4
+            displayName: 'Run RegressionTestRunner'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'test'
+              options: >
+                $(MAVEN_OPTS_CACHE)
+                -Dtest=RegressionTestRunner
+                -Dbrowser=headless
+                -Denv=dev
+              publishJUnitResults: true
+              testResultsFiles: '**/cucumber-reports/regression/cucumber.xml'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.$(JAVA_VERSION)'
+
+          - task: PublishPipelineArtifact@1
+            condition: always()
+            inputs:
+              targetPath: 'target/cucumber-reports/regression'
+              artifact: 'ui-regression-report'
+
+          - task: PublishPipelineArtifact@1
+            condition: failed()
+            inputs:
+              targetPath: 'target/screenshots'
+              artifact: 'ui-regression-screenshots'
+
+      # ── DB Tests ──────────────────────────────────────────
+      - job: DbRegressionJob
+        displayName: 'Run DB Regression Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+
+        steps:
+          - task: Cache@2
+            inputs:
+              key: 'maven | "$(Agent.OS)" | pom.xml'
+              restoreKeys: |
+                maven | "$(Agent.OS)"
+              path: $(MAVEN_CACHE_FOLDER)
+
+          - task: JavaToolInstaller@0
+            inputs:
+              versionSpec: '$(JAVA_VERSION)'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
+
+          - task: Maven@4
+            displayName: 'Run DbTestRunner'
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'test'
+              options: >
+                $(MAVEN_OPTS_CACHE)
+                -Dtest=DbTestRunner
+                -Denv=dev
+                -DDB_URL=$(DB_URL)
+                -DDB_USER=$(DB_USER)
+                -DDB_PASS=$(DB_PASS)
+              publishJUnitResults: true
+              testResultsFiles: '**/cucumber-reports/db/cucumber.xml'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.$(JAVA_VERSION)'
+
+          - task: PublishPipelineArtifact@1
+            condition: always()
+            inputs:
+              targetPath: 'target/cucumber-reports/db'
+              artifact: 'db-regression-report'
