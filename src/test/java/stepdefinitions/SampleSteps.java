@@ -21,6 +21,7 @@ import context.TestContext;
 import io.cucumber.java.en.*;
 import pages.SamplePage;
 import utils.CustomAssert;
+import utils.DriverManager;
 import utils.PageVerifier;
 
 public class SampleSteps {
@@ -137,7 +138,7 @@ public class SampleSteps {
 
     @Then("the current URL should contain {string}")
     public void theCurrentUrlShouldContain(String urlFragment) {
-        PageVerifier.verifyUrlContains(samplePage.driver(), urlFragment);
+        PageVerifier.verifyUrlContains(DriverManager.getDriver(), urlFragment);
     }
 
     @Then("the page should be open")

@@ -1,0 +1,149 @@
+{
+  "_comment": "=================================================================",
+  "_comment1": "FILE: config.json",
+  "_comment2": "PURPOSE:",
+  "_comment3": "  Single source of truth for all framework configuration.",
+  "_comment4": "  Supports multiple environments (dev, staging, prod).",
+  "_comment5": "  Read at runtime by ConfigReader.java via Jackson ObjectMapper.",
+  "_comment6": "",
+  "_comment7": "HOW TO USE:",
+  "_comment8": "  - Set 'activeEnv' to switch environments globally",
+  "_comment9": "  - Override at runtime: mvn test -Denv=staging",
+  "_comment10": "  - ConfigReader always checks System.getProperty('env') first,",
+  "_comment11": "    then falls back to 'activeEnv' value set here",
+  "_comment12": "",
+  "_comment13": "TODO (customise per project):",
+  "_comment14": "  TODO-1 : Replace all baseUrl values with your application URLs",
+  "_comment15": "  TODO-2 : Replace all apiBaseUrl values with your API endpoints",
+  "_comment16": "  TODO-3 : Replace db connection strings, users, passwords",
+  "_comment17": "  TODO-4 : Add/remove environments to match your pipeline stages",
+  "_comment18": "  TODO-5 : Never commit real passwords - use env vars in CI instead",
+  "_comment19": "  TODO-6 : Add any project-specific keys at the bottom",
+  "_comment20": "=================================================================",
+
+  "activeEnv": "dev",
+
+  "environments": {
+
+    "dev": {
+      "_comment": "TODO-1: Replace with your dev application URL",
+      "baseUrl": "https://dev.your-app.com",
+
+      "_comment2": "TODO-2: Replace with your dev API base URL",
+      "apiBaseUrl": "https://api.dev.your-app.com",
+
+      "_comment3": "TODO-3: Replace with your dev database connection details",
+      "db": {
+        "url": "jdbc:mysql://localhost:3306/your_dev_db",
+        "username": "dev_user",
+        "password": "dev_password",
+        "driverClass": "com.mysql.cj.jdbc.Driver"
+      }
+    },
+
+    "staging": {
+      "_comment": "TODO-1: Replace with your staging application URL",
+      "baseUrl": "https://staging.your-app.com",
+
+      "_comment2": "TODO-2: Replace with your staging API base URL",
+      "apiBaseUrl": "https://api.staging.your-app.com",
+
+      "_comment3": "TODO-3: Replace with your staging database connection details",
+      "db": {
+        "url": "jdbc:mysql://staging-db-host:3306/your_staging_db",
+        "username": "staging_user",
+        "password": "staging_password",
+        "driverClass": "com.mysql.cj.jdbc.Driver"
+      }
+    },
+
+    "prod": {
+      "_comment": "TODO-1: Replace with your production application URL",
+      "baseUrl": "https://your-app.com",
+
+      "_comment2": "TODO-2: Replace with your production API base URL",
+      "apiBaseUrl": "https://api.your-app.com",
+
+      "_comment3": "TODO-3: Never store real prod credentials here.",
+      "_comment4": "        Use CI environment variables instead.",
+      "_comment5": "        ConfigReader will read DB_URL, DB_USER, DB_PASS",
+      "_comment6": "        from System.getenv() when values start with '$'",
+      "db": {
+        "url": "$DB_URL",
+        "username": "$DB_USER",
+        "password": "$DB_PASS",
+        "driverClass": "com.mysql.cj.jdbc.Driver"
+      }
+    }
+
+  },
+
+  "browser": {
+    "_comment": "Options: chrome | firefox | edge | headless",
+    "_comment2": "Override at runtime: mvn test -Dbrowser=firefox",
+    "default": "headless",
+
+    "options": {
+      "headless": true,
+      "maximized": true,
+      "acceptInsecureCerts": true,
+
+      "_comment3": "TODO-6: Add any Chrome/Firefox args your project needs",
+      "additionalArgs": [
+        "--disable-gpu",
+        "--no-sandbox",
+        "--disable-dev-shm-usage"
+      ]
+    }
+  },
+
+  "timeouts": {
+    "_comment": "All values are in seconds",
+    "implicitWait": 0,
+    "explicitWait": 10,
+    "pageLoadTimeout": 30,
+    "scriptTimeout": 30,
+    "fluentWaitPollingInterval": 500
+  },
+
+  "api": {
+    "_comment": "Shared API settings used by RequestBuilder.java",
+    "contentType": "application/json",
+    "defaultHeaders": {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "_comment2": "TODO-6: Add your API auth token key name if needed",
+    "authTokenHeader": "Authorization",
+    "connectionTimeout": 10000,
+    "readTimeout": 30000
+  },
+
+  "reporting": {
+    "_comment": "Extent Reports output configuration",
+    "extentReportPath": "target/extent-reports/report.html",
+    "cucumberReportPath": "target/cucumber-reports",
+    "screenshotPath": "target/screenshots",
+    "screenshotOnFailure": true,
+    "screenshotOnPass": false,
+
+    "_comment2": "TODO-6: Change report title and name to match your project",
+    "reportTitle": "Selenium Hybrid Framework - Test Report",
+    "reportName": "Automation Test Results"
+  },
+
+  "retry": {
+    "_comment": "Retry failed scenarios automatically",
+    "enabled": false,
+    "_comment2": "TODO-6: Set retryCount to 1 or 2 for flaky UI tests",
+    "retryCount": 1
+  },
+
+  "testData": {
+    "_comment": "Paths to test data files, relative to src/test/resources",
+    "usersFile": "testdata/users.json",
+    "apiDataFile": "testdata/apidata.json",
+    "dbDataFile": "testdata/dbdata.json"
+  }
+
+}

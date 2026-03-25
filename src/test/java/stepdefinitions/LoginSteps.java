@@ -29,6 +29,7 @@ import context.TestContext;
 import io.cucumber.java.en.*;
 import pages.LoginPage;
 import utils.CustomAssert;
+import utils.DriverManager;
 import utils.PageVerifier;
 import utils.TestDataLoader;
 
@@ -119,7 +120,7 @@ public class LoginSteps {
 
     @Then("I should remain on the login page")
     public void iShouldRemainOnTheLoginPage() {
-        PageVerifier.verifyUrlContains(loginPage.driver(), "/login");
+        PageVerifier.verifyUrlContains(DriverManager.getDriver(), "/login");
     }
 
     @Then("the login button should be enabled")

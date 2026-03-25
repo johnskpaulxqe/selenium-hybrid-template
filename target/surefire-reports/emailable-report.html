@@ -1,0 +1,1088 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "https://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+<title>TestNG Report</title>
+<style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}.invisible {display:none}</style>
+</head>
+<body>
+<table>
+<tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
+<tr><th colspan="8">Surefire suite</th></tr>
+<tr><td><a href="#t0">Surefire test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">9</td><td class="num">34,528</td><td></td><td></td></tr>
+</table>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="9">runners.SmokeTestRunner</td><td><a href="#m0">runScenario</a></td><td rowspan="9">1774443189531</td><td rowspan="9">22196</td></tr><tr class="failedeven"><td><a href="#m1">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m2">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m3">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m4">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m5">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m6">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m7">runScenario</a></td></tr><tr class="failedeven"><td><a href="#m8">runScenario</a></td></tr></tbody>
+</table>
+<h2>Surefire test</h2><h3 id="m0">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Login API returns token for valid credentials&quot;</td><td>&quot;REST API&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">java.lang.AssertionError: Expected HTTP status [200] but received [404] expected [200] but found [404]
+	at utils.CustomAssert.assertStatusCode(CustomAssert.java:354)
+	at utils.ResponseValidator.assertStatusCode(ResponseValidator.java:93)
+	at stepdefinitions.ApiSteps.theResponseStatusShouldBe(ApiSteps.java:136)
+	at ✽.the response status should be 200(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/api.feature:43)
+... Removed 6 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Sample page loads successfully&quot;</td><td>&quot;Sample Page UI Interactions&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">org.openqa.selenium.TimeoutException: Element not visible after 10s: [By.id: username]
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:99)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iAmLoggedInAs(LoginSteps.java:58)
+	at ✽.I am logged in as &quot;admin&quot;(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/ui.feature:29)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: username (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;x86_64&apos;, os.version: &apos;15.6&apos;, java.version: &apos;25.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /var/folders/w2/67mk25c54mj...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:53328}, goog:processID: 60889, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:53328/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 1d3b3fa51a71a07a8f6e483a2ce0dc02
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:96)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iAmLoggedInAs(LoginSteps.java:58)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+... Removed 9 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Primary action button performs expected action&quot;</td><td>&quot;Sample Page UI Interactions&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">org.openqa.selenium.TimeoutException: Element not visible after 10s: [By.id: username]
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:99)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iAmLoggedInAs(LoginSteps.java:58)
+	at ✽.I am logged in as &quot;admin&quot;(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/ui.feature:29)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: username (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;x86_64&apos;, os.version: &apos;15.6&apos;, java.version: &apos;25.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /var/folders/w2/67mk25c54mj...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:53331}, goog:processID: 60891, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:53331/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: f62663b8505b061bfba16c35e87a4be4
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:96)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iAmLoggedInAs(LoginSteps.java:58)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+... Removed 9 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Successful login with valid admin credentials&quot;</td><td>&quot;User Login&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">org.openqa.selenium.TimeoutException: Element not visible after 10s: [By.id: username]
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:99)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iLoginAs(LoginSteps.java:93)
+	at ✽.I login as &quot;admin&quot;(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/login.feature:36)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: username (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;x86_64&apos;, os.version: &apos;15.6&apos;, java.version: &apos;25.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /var/folders/w2/67mk25c54mj...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:53326}, goog:processID: 60916, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:53326/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: db5a9f11ea3f6e1ac6401ffa692f9e15
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:96)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iLoginAs(LoginSteps.java:93)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+... Removed 9 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Health check endpoint returns 200&quot;</td><td>&quot;REST API&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">java.lang.AssertionError: Response body should contain [UP] | Expected [&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;!-- Start cookieyes banner --&gt;
+&lt;script id=&quot;cookieyes&quot; type=&quot;text/javascript&quot; src=&quot;https://cdn-cookieyes.com/client_data/e71bc53f1cb88666d160c1e2/script.js&quot;&gt;&lt;/script&gt;
+&lt;!-- End cookieyes banner --&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;!-- Required meta tags --&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, shrink-to-fit=no&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://www.google.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://www.gstatic.com&quot; crossorigin&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css&quot; /&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://static.hugedomains.com/css/hdv3-css/reboot.min.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://static.hugedomains.com/css/hdv3-css/style.css?aa=2021-06-09a&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://static.hugedomains.com/css/hdv3-css/responsive.css?aa=2021-06-09a&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://static.hugedomains.com/css/hdv3-css/hd-style.css?aa=2022-10-33&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://static.hugedomains.com/css/hdv3-css/hd-style-print.css&quot;&gt;
+&lt;meta name=&quot;theme-color&quot; content=&quot;#4e73b7&quot;&gt;
+&lt;meta property=&quot;og:site_name&quot; content=&quot;HugeDomains&quot;&gt;
+&lt;meta property=&quot;og:type&quot; content=&quot;website&quot;&gt;
+&lt;meta property=&quot;og:image&quot; content=&quot;https://static.hugedomains.com/images/hdv3-img/og_hugedomains.png&quot; /&gt;
+&lt;title&gt;Your-App.com is for sale | HugeDomains&lt;/title&gt;
+&lt;meta property=&quot;og:title&quot; content=&quot;Your-App.com is for sale | HugeDomains&quot; /&gt;
+&lt;meta property=&quot;og:url&quot; content=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=Your-App.com&quot; /&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=Your-App.com&quot; /&gt;
+&lt;meta property=&quot;og:description&quot; content=&quot;Friendly and helpful customer support that goes above and beyond. We help you get the perfect domain name.&quot; /&gt;
+&lt;meta name=&quot;description&quot; content=&quot;Friendly and helpful customer support that goes above and beyond. We help you get the perfect domain name.&quot;/&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css?family=Noto+Sans:400,700&amp;display=swap&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://use.typekit.net/zyw6mds.css&quot;&gt;
+&lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;
+&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=UA-7117339-4&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag(&apos;js&apos;, new Date());
+/* gtag(&apos;config&apos;, &apos;UA-7117339-4&apos;); */
+gtag(&apos;config&apos;, &apos;UA-7117339-4&apos;, {
+&apos;custom_map&apos;: {
+&apos;dimension3&apos;: &apos;siteversion&apos;
+}
+});
+gtag(&apos;event&apos;, &apos;pageLoad&apos;, { &apos;siteversion&apos;: &apos;HDv3&apos; });
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body &gt;
+&lt;a href=&quot;#main&quot; class=&quot;skip-main&quot;&gt;Skip to main content&lt;/a&gt;
+&lt;header id=&quot;header&quot; class=&quot;hdv3HeaderDarkBlue noBottomBorderPrint&quot; &gt;
+&lt;div class=&quot;js-overlay-modal overlay-modal&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;container &quot;&gt;
+&lt;div class=&quot;header-top d-flex ai-center &quot;&gt;
+&lt;div class=&quot;navBurger&quot; role=&quot;button&quot; id=&quot;navToggle&quot; aria-label=&quot;Navigation Toggle&quot;&gt;&lt;/div&gt;
+&lt;a class=&quot;logo&quot; href=&quot;https://www.hugeDomains.com/index.cfm&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/hd-header-logo-v3.svg&quot; alt=&quot;logo&quot; class=&quot;img-fluid&quot;&gt;&lt;/a&gt;
+&lt;div class=&quot;d-flex ai-center jc-end&quot;&gt;
+&lt;div class=&quot;search-trigger&quot;&gt;
+&lt;a href=&quot;tel:1-303-893-0552&quot; class=&quot;header-tel headerMobileSearchPhone&quot; aria-label=&quot;HugeDomains Phone Number&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/phone-icon-white.png&quot; alt=&quot;&quot; border=&quot;0&quot;&gt;&lt;/a&gt;
+&lt;input type=&quot;image&quot; class=&quot;headerSearchMagInputImg&quot; src=&quot;https://static.hugedomains.com/images/hdv3-img/search-icon-white.png&quot; tabindex=&quot;0&quot; alt=&quot;Header Mobile Search&quot; border=&quot;0&quot; onclick=&quot;headerMobileSearchMagFunc(); return false;&quot; &gt;
+&lt;/div&gt;
+&lt;div class=&quot;search-box &quot; id=&quot;hdv3HeaderSearchBoxDivID&quot;&gt;
+&lt;!--&lt;span&gt;Search for domains&lt;/span&gt;--&gt;
+&lt;form action=&quot;https://www.hugeDomains.com/domain_search.cfm&quot; method=&quot;get&quot; class=&quot;search-form&quot; id=&quot;siteHeaderFormSearchID&quot;&gt;
+&lt;input type=&quot;text&quot; name=&quot;domain_name&quot; value=&quot;&quot; class=&quot;search-input&quot; id=&quot;hdv3HeaderSearchTextID&quot; aria-label=&quot;Header Domain Search&quot; &gt;
+&lt;button type=&quot;submit&quot; value=&quot;&quot; class=&quot;search-btn&quot; onClick=&quot;hdv3HeaderSearchSubmitFunc(); return false; &quot; style=&quot;min-width:90px; height:35px;&quot; id=&quot;hdv3HeaderSearchButtonID&quot; &gt;Search&lt;/button&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3HeaderSearchProcessingID&quot; class=&quot;search-btn btn hiddenAtLoad width50&quot; onclick=&quot;return false;&quot; style=&quot; height:35px; min-width:90px; width:90px; padding-left:0px; padding-right:0px; padding-bottom:0px; padding-top:0px; margin-bottom:0px; overflow:hidden;&quot; &gt;
+&lt;div class=&quot;circularJ circularBlackJ &quot; style=&quot;margin-left:0px; margin-right:0px; margin-top:2px; display:inline-block;&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+&lt;a href=&quot;tel:1-303-893-0552&quot; class=&quot;header-tel hideAt991Width&quot; aria-label=&quot;HugeDomains Phone Number&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/phone-icon.png&quot; alt=&quot;&quot;&gt;&lt;span class=&quot;tell-text&quot;&gt;+1-303-893-0552&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;nav class=&quot;navbar hQQQideAt991Width&quot;&gt;
+&lt;div class=&quot;overDrawerLay &quot; onclick=&quot; $( &apos;#navToggle&apos; ).click(); &quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;overlay &quot;&gt;
+&lt;div class=&quot;overlayMenu d-flex ai-center jc-between&quot;&gt;
+&lt;ul class=&quot;navbar-nav&quot;&gt;
+&lt;li class=&quot;nav-item&quot;&gt;
+&lt;a class=&quot;nav-link &quot; href=&quot;https://www.hugeDomains.com/index.cfm&quot;&gt;Home&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;nav-item&quot;&gt;
+&lt;a class=&quot;nav-link &quot; href=&quot;https://www.hugeDomains.com/faq.cfm&quot;&gt;FAQs&lt;/b&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;nav-item&quot;&gt;
+&lt;a class=&quot;nav-link &quot; href=&quot;https://www.hugeDomains.com/about.cfm&quot;&gt;About us&lt;/b&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;nav-item&quot;&gt;
+&lt;a class=&quot;nav-link &quot; href=&quot;https://www.hugeDomains.com/contact.cfm&quot;&gt;Contact us&lt;/b&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;nav-item&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-login.cfm&quot; class=&quot;nav-link &quot;&gt;My account&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;shop-links&quot;&gt;
+&lt;div class=&quot;cart-icon favorit-ico &quot; style=&quot;padding-top:0px;&quot;&gt;&lt;a href=&quot;https://www.hugeDomains.com/my-favorites.cfm&quot; class=&quot;whiteLink &quot; id=&quot;hdv3HeaderFavIconLinkID&quot; aria-label=&quot;My favorites&quot; &gt;&lt;span class=&quot;mobile-show&quot;&gt;My favorites&lt;/span&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/favorite-header.png&quot; alt=&quot;&quot;&gt;&lt;span class=&quot;cart-number hiddenAtLoad&quot; id=&quot;hdv3FavNumberSpanID&quot;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;cart-icon&quot; style=&quot;padding-top:0px;&quot;&gt;&lt;a href=&quot;https://www.hugeDomains.com/shopping_cart.cfm&quot; class=&quot;whiteLink &quot; id=&quot;hdv3HeaderShoppingCartLinkID&quot; aria-label=&quot;Shopping Cart&quot; &gt;&lt;span class=&quot;mobile-show&quot;&gt;Shopping cart&lt;/span&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/cart.png&quot; alt=&quot;&quot;&gt;&lt;span class=&quot;cart-number hiddenAtLoad&quot; id=&quot;hdv3CartNumberSpanID&quot; &gt;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/nav&gt;
+&lt;/header&gt;
+&lt;main class=&quot;site-main &quot;&gt;
+&lt;!-- 219 / HDv3 Product 3 - Billboard - Switch - Buy Now or PP 1 | Always $100 - 24 Months --&gt;
+&lt;!-- 214 / billboardbuy now or pp 1 - 24 months --&gt;
+&lt;div class=&quot;product-fav-wrapp container&quot;&gt;
+&lt;div class=&quot;side-wrapp dn-mobile&quot;&gt;
+&lt;div class=&quot;slide-sidebar-block&quot;&gt;
+&lt;div class=&quot;ss-block-inner&quot;&gt;
+&lt;div class=&quot;ss-block-inner-new&quot;&gt;
+&lt;span class=&quot;ss-block-title green&quot; &gt;Your-App.com&lt;/span&gt;
+&lt;span class=&quot;row-save ss-bn &quot;&gt;
+&lt;span&gt;Buy now:&lt;/span&gt;&lt;span class=&quot;big-text green&quot;&gt;$1,595&lt;/span&gt;
+&lt;/span&gt;
+&lt;!-- buy now --&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App&amp;e=com&quot; class=&quot;btn m-b-0 m-t-0 &quot; id=&quot;hdv3Billboard197BuyID&quot; onClick=&quot;$(&apos;#hdv3Billboard197BuyID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard197BuyProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;); landerFuncA5D81EA57EB7465AB54D1288CE7B22F1Func(); return false;&quot; style=&quot;height:50px; padding-right:30px;&quot; &gt;&amp;#9656; Buy now&lt;/a&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard197BuyProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:273px; margin-top:0px; margin-bottom:0px; display:flex;&quot; &gt;Processing
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;span class=&quot;or&quot;&gt;or&lt;/span&gt;
+&lt;!-- pp --&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;btn m-t-0 &quot; id=&quot;hdv3Billboard197PPID&quot; onClick=&quot;$(&apos;#hdv3Billboard197PPID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard197PPProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;);&quot; style=&quot;height:50px; padding-right:30px;&quot; &gt;&amp;#9656; Start payment plan&lt;/a&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard197PPProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:273px; margin-top:0px; margin-bottom:25px; display:flex;&quot; &gt;Processing
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;span class=&quot;ssblock-footer&quot;&gt;Only $66.46/mo. for 24 months&lt;/span&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;link dif-l&quot;&gt;See details&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;crediti &quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;div class=&quot;img&quot;&gt;
+&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/30daysmallico.png&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;span&gt;30-day money back guarantee&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&quot;img&quot;&gt;
+&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/roket-side-ico.png&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;span&gt;Take immediate ownership&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&quot;img&quot;&gt;
+&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/safesmallico.png&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;span&gt;Safe and secure shopping&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- LL: 214 , 214 --&gt;
+&lt;form action=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App.com&quot; method=&quot;post&quot; id=&quot;landerFormA5D81EA57EB7465AB54D1288CE7B22F1ID&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;cartCheck&quot; value=&quot;0&quot; id=&quot;landerFormA5D81EA57EB7465AB54D1288CE7B22F1CheckID&quot;&gt;
+&lt;/form&gt;
+&lt;script&gt;
+function landerFuncA5D81EA57EB7465AB54D1288CE7B22F1Func() {
+document.getElementById(&apos;landerFormA5D81EA57EB7465AB54D1288CE7B22F1CheckID&apos;).value = 42;
+document.getElementById(&apos;landerFormA5D81EA57EB7465AB54D1288CE7B22F1ID&apos;).submit();
+}
+&lt;/script&gt;
+&lt;div class=&quot;content-wrapp&quot;&gt;
+&lt;section class=&quot;buy-now single-product top-container-new-product&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;single-product-block&quot;&gt;
+&lt;div class=&quot;bn-block&quot;&gt;
+&lt;h1 id=&quot;main&quot; class=&quot;domain-name&quot; &gt;Your-App.com&lt;/h1&gt;
+&lt;p class=&quot;d-t-n&quot;&gt;This domain is for sale: &lt;span class=&quot;green&quot;&gt;$1,595&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- tablet block --&gt;
+&lt;div class=&quot;tablet-block-s&quot;&gt;
+&lt;p class=&quot;text-center&quot;&gt;Buy now for &lt;span class=&quot;green&quot;&gt;$1,595&lt;/span&gt; or pay &lt;span class=&quot;green&quot;&gt;$66.46&lt;/span&gt; per month for 24 months&lt;/p&gt;
+&lt;div class=&quot;tablet-block-row&quot;&gt;
+&lt;div class=&quot;tablet-block-left&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App&amp;e=com&quot; class=&quot;btn&quot; style=&quot;padding-right:30px; width:170px; min-width:170px; margin-top:10px; &quot; id=&quot;hdv3Billboard197BuyTabID&quot; onClick=&quot;$(&apos;#hdv3Billboard197BuyTabID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard197BuyTabProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;); landerFuncA5D81EA57EB7465AB54D1288CE7B22F1Func(); return false;&quot; &gt;&amp;#9656; Buy now&lt;/a&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard197BuyTabProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:170px; margin-top:10px; margin-bottom:25px; display:flex;&quot; &gt;Processing
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class=&quot;tablet-block-midle&quot; style=&quot;padding-bottom:25px;&quot; &gt;
+&lt;span style=&quot;font-size:16px;&quot; &gt;or&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;tablet-block-right&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;btn&quot; style=&quot;padding-right:30px; width:247px; min-width:247px; margin-top:10px; &quot; id=&quot;hdv3Billboard197BuyTabPPID&quot; onClick=&quot;$(&apos;#hdv3Billboard197BuyTabPPID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard197BuyTabPPProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;);&quot; &gt;&amp;#9656; Start payment plan&lt;/a&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard197BuyTabPPProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:247px; margin-top:10px; margin-bottom:25px; display:flex;&quot; &gt;Processing
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- desktop 1 line --&gt;
+&lt;div class=&quot;tablet-block-footer hdv3Product3b196TabletPPOneLine&quot; style=&quot;&quot; id=&quot;&quot;&gt;
+&lt;p&gt;
+&lt;span&gt;Make 24 monthly payments&lt;/span&gt;
+&lt;span&gt;Pay 0% interest&lt;/span&gt;
+&lt;span&gt;Start using the domain today. &lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;blueLink linkUnderlineHover&quot; &gt;See details&lt;/a&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- tablet 2 line --&gt;
+&lt;div class=&quot;tablet-block-footer hdv3Product3b196TabletPPTwoLine&quot; style=&quot;margin-top:0px;&quot;&gt;
+&lt;p&gt;
+&lt;span&gt;Make 24 monthly payments&lt;/span&gt;
+&lt;span&gt;Pay 0% interest&lt;/span&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;span&gt;Start using the domain today. &lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;blueLink linkUnderlineHover&quot; &gt;See details&lt;/a&gt;&lt;/span&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!--	mobile buying block mobileQQQ --&gt;
+&lt;div class=&quot;moble-block leftRightMargin20Mobile560&quot;&gt;
+&lt;p class=&quot;text-center&quot; style=&quot;margin-bottom:0px;&quot;&gt;This domain is for sale: &lt;span class=&quot;green&quot;&gt;$1,595&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&quot;ss-block-inner-new bb-none&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App&amp;e=com&quot; class=&quot;btn m-b-0 m-t-0&quot; id=&quot;hdv3Billboard197BuyMobileID&quot; onClick=&quot;$(&apos;#hdv3Billboard197BuyMobileID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard197BuyMobileProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;); landerFuncA5D81EA57EB7465AB54D1288CE7B22F1Func(); return false;&quot; style=&quot;height:50px; padding-right:30px;&quot; &gt;&amp;#9656; Buy now&lt;/a&gt;
+&lt;!-- from above
+&lt;a href=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App&amp;e=com&quot; class=&quot;btn&quot; style=&quot;padding-right:30px; width:170px; min-width:170px; &quot;&gt;&amp;#9656; Buy now&lt;/a&gt;
+--&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard197BuyMobileProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:170px; margin-top:0px; margin-bottom:0px; display:flex;&quot; &gt;&lt;span style=&quot;font-size:20px;&quot;&gt;Processing&lt;/span&gt;
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;span class=&quot;or&quot; style=&quot;text-align:center;&quot;&gt;or&lt;/span&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;btn m-t-0&quot; id=&quot;hdv3Billboard197BuyMobilePPID&quot; onClick=&quot;$(&apos;#hdv3Billboard197BuyMobilePPID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard197BuyMobilePPProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;);&quot; style=&quot;height:50px; padding-right:30px;&quot; &gt;&amp;#9656; Start payment plan&lt;/a&gt;
+&lt;!-- from
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;btn&quot; style=&quot;padding-right:30px; width:247px; min-width:247px; &quot; &gt;&amp;#9656; Start payment plan&lt;/a&gt;
+--&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard197BuyMobilePPProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:247px; margin-top:0px; margin-bottom:25px; display:flex;&quot; &gt;&lt;span style=&quot;font-size:20px;&quot;&gt;Processing&lt;/span&gt;
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;span class=&quot;ssblock-footer&quot;&gt;Only $66.46/mo. for 24 months&lt;/span&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;link dif-l&quot;&gt;See details&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- fav --&gt;
+&lt;div class=&quot;full-width-favorite favorite-left-side&quot;&gt;
+&lt;div class=&quot;favorite-check-wrap topBottomMargin4Mobile560&quot;&gt;
+&lt;label for=&quot;hdv3ProductFavoriteHeartID&quot;&gt;
+&lt;input type=&quot;checkbox&quot; id=&quot;hdv3ProductFavoriteHeartID&quot; onChange=&quot;favoriteProductBarFirstFunc(&apos;Your-App.com&apos;);&quot;&gt;
+&lt;span&gt;Favorite &lt;span id=&quot;hdv3ProductHurrySpanID&quot; class=&quot;hiddenAtLoad&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/label&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style=&quot;&quot; class=&quot;leftRightMargin20Mobile560 borderTopGreyBar560 marginTop15px560&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;top-bottom-bordered-block noBorderTop560 noMarginTop560 &quot;&gt;
+&lt;span&gt;Questions? Talk to a domain expert: &lt;a href=&quot;tel:1-303-893-0552&quot; class=&quot;link&quot;&gt;1&amp;#8209;303&amp;#8209;893&amp;#8209;0552&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;div class=&quot;crediti tablet-block hdv3pitch noMobileLeftRightBorder560 leftRightPadding20Mobile560&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;div class=&quot;img&quot;&gt;
+&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/zero-side-ico.png&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;span&gt;Enjoy zero percent financing&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&quot;img&quot;&gt;
+&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/roket-side-ico.png&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;span&gt;Quick delivery of the domain&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&quot;img&quot;&gt;
+&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/safesmallico.png&quot; alt=&quot;&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;span&gt;Safe and secure shopping&lt;/span&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- 185 / test --&gt;
+&lt;section class=&quot;testimonails single-product hdv3pitch leftRightPadding20Mobile991 leftRightPadding20Mobile560 leftRightPaddingImp20Mobile991 &quot; style=&quot;border-bottom:0px; &quot;&gt;
+&lt;div class=&quot;testimonails-wrap container&quot;&gt;
+&lt;div class=&quot;single-product-block&quot;&gt;
+&lt;h2&gt;Since 2005, we&apos;ve helped thousands of people get the perfect domain name&lt;/h2&gt;
+&lt;!-- &lt;div class=&quot;block-title&quot;&gt;&lt;h2&gt;Since 2005, we&apos;ve helped thousands of people get the perfect domain name&lt;/h2&gt;&lt;/div&gt; --&gt;
+&lt;div class=&quot;testimonials-container&quot;&gt;
+&lt;div class=&quot;testimonials-item&quot;&gt;
+&lt;div class=&quot;testimonials-item_image&quot;&gt;&lt;div class=&quot;img-placeholder darkblue&quot; style=&quot;background-color:#9085ff;&quot;&gt;G&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;testimonials-item_content bb-quotes-content&quot;&gt;
+&lt;p class=&quot;feedback&quot;&gt;I have been wanting this site for so long and it was EZ Breazy with HugeDomains.&lt;/p&gt;
+&lt;span class=&quot;feedback-owner&quot;&gt;- Gregory Hardy, February 18, 2026&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;testimonials-item&quot;&gt;
+&lt;div class=&quot;testimonials-item_image&quot;&gt;&lt;div class=&quot;img-placeholder darkblue&quot; style=&quot;background-color:#0047af;&quot;&gt;D&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;testimonials-item_content bb-quotes-content&quot;&gt;
+&lt;p class=&quot;feedback&quot;&gt;Love your interest-free payment plans! This is my 3rd or 4th domain purchase with you, quick, trustable and easy, thank you!&lt;/p&gt;
+&lt;span class=&quot;feedback-owner&quot;&gt;- Dmitri Sennikov, February 10, 2026&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;testimonials-item&quot;&gt;
+&lt;div class=&quot;testimonials-item_image&quot;&gt;&lt;div class=&quot;img-placeholder darkblue&quot; style=&quot;background-color:#830000;&quot;&gt;J&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;testimonials-item_content bb-quotes-content&quot;&gt;
+&lt;p class=&quot;feedback&quot;&gt;The team was helpful, quick and provided more discount than what I proposed. Thanks a lot team HudeDomains.&lt;/p&gt;
+&lt;span class=&quot;feedback-owner&quot;&gt;- Joseph Azar, February 2, 2026&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;testimonials-item&quot;&gt;
+&lt;div class=&quot;testimonials-item_image&quot;&gt;&lt;div class=&quot;img-placeholder darkblue&quot; style=&quot;background-color:#89969f;&quot;&gt;C&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;testimonials-item_content bb-quotes-content&quot;&gt;
+&lt;p class=&quot;feedback&quot;&gt;Good service and immediate responses.&lt;/p&gt;
+&lt;span class=&quot;feedback-owner&quot;&gt;- Christian Alexander Margaritis, January 30, 2026&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;testimonials-item&quot;&gt;
+&lt;div class=&quot;testimonials-item_image&quot;&gt;&lt;div class=&quot;img-placeholder darkblue&quot; style=&quot;background-color:#2aa527;&quot;&gt;J&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;testimonials-item_content bb-quotes-content&quot;&gt;
+&lt;p class=&quot;feedback&quot;&gt;Easy Transaction with quick response and quick delivery of domain. We would definitely work with Huge Domains again.&lt;/p&gt;
+&lt;span class=&quot;feedback-owner&quot;&gt;- J M Gaffney, January 30, 2026&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/testimonials.cfm&quot; class=&quot;see-more testim-see-more blueLink linkUnderlineHover centerTextAt560Width&quot; target=&quot;_blank&quot;&gt;See more testimonials&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- 186 / 3 boxes --&gt;
+&lt;style&gt;
+.testimonailQQQs {
+border-bottom: 0px solid #d2d6da !important;
+}
+&lt;/style&gt;
+&lt;h2 class=&quot;size24&quot;&gt;Our promise to you&lt;/h2&gt;
+&lt;section class=&quot;noMobileLeftRightBorder560 leftRightMargin20Mobile991 noLeftRightMargin20Mobile560 noMiddleBorderBottomMobile991 width100Minus42Mobile991 widthQQQ100Mobile991 width100Mobile560 testimonails single-product colored-section m-mb-0 boreder-b-none hdv3pitch &quot;&gt;
+&lt;div class=&quot;testimonails-wrap container widthQQQ100Mobile991 widthAutoMobile991 &quot;&gt;
+&lt;div class=&quot;single-product-block small-p&quot;&gt;
+&lt;h3 class=&quot;subtitels&quot;&gt;30-day money back guarantee&lt;/h3&gt;
+&lt;p&gt;HugeDomains provides a 100% satisfaction guarantee on every domain name that we sell through our website. If you buy a domain and are unhappy with it, we will accept the return within 30 days and issue a full refund – no questions asked.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section class=&quot;testimonails single-product colored-section m-mb-0 boreder-t-none boreder-b-none m-border-block noMobileLeftRightBorder560 leftRightMargin20Mobile991 width100Mobile560 noLeftRightMargin20Mobile560 noMiddleBorderBottomMobile991 width100Minus42Mobile991 widthQQQ100Mobile991&quot;&gt;
+&lt;div class=&quot;testimonails-wrap container widthAutoMobile991&quot;&gt;
+&lt;div class=&quot;single-product-block small-p&quot;&gt;
+&lt;h3 class=&quot;subtitels&quot;&gt;Quick delivery of the domain&lt;/h3&gt;
+&lt;p&gt;In most cases access to the domain will be available within one to two hours of purchase, however access to domains purchased after business hours will be available within the next business day.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;section class=&quot;testimonails single-product colored-section boreder-t-none noMobileLeftRightBorder560 leftRightMargin20Mobile991 noLeftRightMargin20Mobile560 width100Minus42Mobile991 width100Mobile560 widthQQQ100Mobile991&quot;&gt;
+&lt;div class=&quot;testimonails-wrap container widthAutoMobile991&quot;&gt;
+&lt;div class=&quot;single-product-block small-p&quot;&gt;
+&lt;h3 class=&quot;subtitels&quot;&gt;Safe and secure shopping&lt;/h3&gt;
+&lt;p&gt;Your online safety and security is our top priority. We understand the importance of protecting your personal information.&lt;/p&gt;
+&lt;br /&gt;
+&lt;p&gt;We protect your information through SSL encryption technology, providing the safest, most secure shopping experience possible. Additionally, you may checkout with PayPal or Escrow.com.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- 187 faq --&gt;
+&lt;!-- faq p3--&gt;
+&lt;section class=&quot;faq-section single-product bordered-section hdv3pitch lQQQeftRightPadding20Mobile991 leftRightPadding20Mobile560 lQQQeftRightPaddingImp20Mobile991 LeftRightPaddingImp20Mobile560 lQQQeftRightMargin20Mobile560 width100Minus40Mobile991 leftRightMargin20Mobile991 noLeftRightPaddingImpMobile991 &quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;single-product-block&quot;&gt;
+&lt;div class=&quot;oter-domain-title d-flex jc-between&quot;&gt;
+&lt;h2 class=&quot;size24&quot;&gt;FAQs&lt;/h2&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/faq.cfm&quot; class=&quot;see-more-domains blueLink linkUnderlineHover hideAt560Width&quot; target=&quot;_blank&quot;&gt;See more FAQs&lt;/a&gt;
+&lt;/div&gt;
+&lt;!-- block --&gt;
+&lt;div class=&quot;faq-block&quot;&gt;
+&lt;!-- Can I transfer the domain to another registrar like GoDaddy? --&gt;
+&lt;!-- Transferring the domain to another registrar such as GoDaddy --&gt;
+&lt;div class=&quot;faq-block-item&quot;&gt;
+&lt;div class=&quot;faq-bi-title&quot;&gt;&lt;a href=&quot;#&quot; style=&quot;color:white; &quot; &gt;How do I transfer to another registrar such as GoDaddy?&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;faq-bi-content&quot;&gt;&lt;p&gt;Yes, you can transfer your domain to any registrar or hosting company once you have purchased it. Since domain transfers are a manual process, it can take up to 5 days to transfer the domain.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Domains purchased with payment plans are not eligible to transfer until all payments have been made. Please remember that our 30-day money back guarantee is void once a domain has been transferred.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;For transfer instructions to GoDaddy, please &lt;a href=&quot;https://www.hugeDomains.com/transfer-domain-to-godaddy.cfm&quot; class=&quot;whiteLink&quot; style=&quot;text-decoration:underline;&quot;&gt;click here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;faq-block-item&quot;&gt;
+&lt;div class=&quot;faq-bi-title&quot;&gt;&lt;a href=&quot;#&quot; style=&quot;color:white; &quot; &gt;How do I get the domain after the purchase?&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;faq-bi-content&quot;&gt;&lt;p&gt;Once you purchase the domain we will push it into an account for you at our registrar, NameBright.com, we will then send you an email with your NameBright username and password. In most cases access to the domain will be available within one to two hours of purchase, however access to domains purchased after business hours will be available within the next business day.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;faq-block-item&quot;&gt;
+&lt;div class=&quot;faq-bi-title&quot;&gt;&lt;a href=&quot;#&quot; style=&quot;color:white; &quot; &gt;What comes with the domain name?&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;faq-bi-content&quot;&gt;&lt;p&gt;Nothing else is included with the purchase of the domain name. Our registrar NameBright.com does offer email packages for a yearly fee, however you will need to find hosting and web design services on your own.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;faq-block-item&quot;&gt;
+&lt;div class=&quot;faq-bi-title&quot;&gt;&lt;a href=&quot;#&quot; style=&quot;color:white; &quot; &gt;Do you offer payment plans?&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;faq-bi-content&quot;&gt;&lt;p&gt;Yes we offer payment plans for up to 12 months. &lt;a href=&quot;https://www.hugeDomains.com/payment-plans.cfm?d=Your-App.com&quot; style=&quot;color:white; text-decoration:underline;&quot; target=&quot;_blank&quot; &gt;See details&lt;/a&gt;.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;faq-block-item&quot;&gt;
+&lt;div class=&quot;faq-bi-title&quot;&gt;&lt;a href=&quot;#&quot; style=&quot;color:white; &quot; &gt;How do I keep my personal information private?&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;faq-bi-content&quot;&gt;&lt;p&gt;If you wish the domain ownership information to be private, add WhoIs Privacy Protection to your domain. This hides your personal information from the general public.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;To add privacy protection to your domain, do so within your registrar account. NameBright offers WhoIs Privacy Protection for free for the first year, and then for a small fee for subsequent years.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Whois information is not updated immediately. It typically takes several hours for Whois data to update, and different registrars are faster than others. Usually your Whois information will be fully updated within two days.&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!--
+&lt;div class=&quot;more-w&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/faq.cfm&quot; class=&quot;see-more-faq link blueLink&quot; target=&quot;_blank&quot;&gt;See more FAQs&lt;/a&gt;
+&lt;/div&gt;
+--&gt;
+&lt;div class=&quot;more-w hiddenAtLoad showAt560Width&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/faq.cfm&quot; class=&quot;see-more-faq link blueLink&quot; target=&quot;_blank&quot;&gt;See more FAQs&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- block --&gt;
+&lt;!-- qqq wrong div
+&lt;/div&gt;
+&lt;/div&gt;
+--&gt;
+&lt;/section&gt;
+&lt;!-- eof faq --&gt;
+&lt;!-- 188 --&gt;
+&lt;!-- .com video --&gt;
+&lt;!-- 188 --&gt;
+&lt;section class=&quot;testimonails single-product bordered-section hdv3pitch lQQQeftRightPadding20Mobile991 leftRightPadding20Mobile560 width100Minus40Mobile991 leftRightMargin20Mobile991 noLeftRightPaddingImpMobile991 &quot; &gt;
+&lt;div class=&quot;testimonails-wrap container&quot;&gt;
+&lt;div class=&quot;single-product-block&quot;&gt;
+&lt;div class=&quot;video-block&quot;&gt;
+&lt;iframe aria-label=&quot;Find out why a good domain name is important&quot; width=&quot;480&quot; height=&quot;270&quot; src=&quot;https://www.youtube.com/embed/bqLUp7GuUTg?rel=0&amp;autoplay=0&amp;showinfo=0&amp;controls=0&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen &gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;div class=&quot;text-video hideAt630Width &quot;&gt;&lt;p&gt;Your Web address means everything – watch our video see why&lt;/p&gt;&lt;/div&gt;
+&lt;div class=&quot;text-video showAt630Width &quot;&gt;&lt;p align=&quot;center&quot;&gt;Your Web address means everything&lt;br /&gt;watch our video see why&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- 227 // HDv3 Product 3 - Pitch - related v2 --&gt;
+&lt;section class=&quot;other-domains-update-v-1 single-product&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;single-product-block&quot;&gt;
+&lt;div class=&quot;oter-domain-title d-flex jc-between&quot;&gt;
+&lt;h2 class=&quot;size24&quot;&gt;Other domains you might like&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div class=&quot;domains-table border-none&quot;&gt;
+&lt;div class=&quot;domain-row&quot;&gt;
+&lt;div class=&quot;domain&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=MoveYourApp.com&quot; class=&quot;link blueLink&quot;&gt;MoveYourApp.com&lt;/a&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=MoveYourApp.com&quot; class=&quot;btn&quot; style=&quot;height:35px;&quot; &gt;&amp;#9656; See domain&lt;/a&gt;
+&lt;span class=&quot;price&quot;&gt;$7,895&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;domain-row&quot;&gt;
+&lt;div class=&quot;domain&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=YourBizApp.com&quot; class=&quot;link blueLink&quot;&gt;YourBizApp.com&lt;/a&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=YourBizApp.com&quot; class=&quot;btn&quot; style=&quot;height:35px;&quot; &gt;&amp;#9656; See domain&lt;/a&gt;
+&lt;span class=&quot;price&quot;&gt;$2,495&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;domain-row&quot;&gt;
+&lt;div class=&quot;domain&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=YourLocalApp.com&quot; class=&quot;link blueLink&quot;&gt;YourLocalApp.com&lt;/a&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_profile.cfm?d=YourLocalApp.com&quot; class=&quot;btn&quot; style=&quot;height:35px;&quot; &gt;&amp;#9656; See domain&lt;/a&gt;
+&lt;span class=&quot;price&quot;&gt;$1,395&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!--
+&lt;div class=&quot;see-more-link&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_search.cfm?domain_name=Your-+App&quot; class=&quot;see-more-domains link blueLink&quot; target=&quot;_blank&quot;&gt;See more domains&lt;/a&gt;
+&lt;/div&gt;
+--&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- 226 // HDv3 Product 3 - Pitch - Quick Stats --&gt;
+&lt;section class=&quot;quick-stats-section single-product hdv3pitch leftRightMargin20Mobile991 width100Minus40Mobile991&quot; style=&quot;margin-top:30px;&quot;&gt;
+&lt;div class=&quot;container&quot;&gt;
+&lt;div class=&quot;single-product-block&quot;&gt;
+&lt;div class=&quot;oter-domain-title d-flex jc-between&quot;&gt;
+&lt;h2 class=&quot;size24&quot;&gt;Quick stats&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quick-stat-block&quot;&gt;
+&lt;div class=&quot;qs-row&quot;&gt;
+&lt;div&gt;Domain length&lt;/div&gt;
+&lt;div&gt;8 characters&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;qs-row&quot;&gt;
+&lt;div&gt;Keywords&lt;/div&gt;
+&lt;div&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/domain_search.cfm?domain_name=Your-&quot; class=&quot;link blueLink&quot;&gt;Your-&lt;/a&gt;, &lt;a href=&quot;https://www.hugeDomains.com/domain_search.cfm?domain_name=App&quot; class=&quot;link blueLink&quot;&gt;App&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;qs-row&quot;&gt;
+&lt;div&gt;Base domain&lt;/div&gt;
+&lt;div&gt;Your-App&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;qs-row&quot;&gt;
+&lt;div&gt;TLD extension&lt;/div&gt;
+&lt;div&gt;.com&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- 191 // close out / buy or pp / anchor --&gt;
+&lt;/div&gt;
+&lt;div class=&quot;mobile-fixed-block hiddenAtLoad&quot; style=&quot;border-top:1px solid #d2d6da;&quot; id=&quot;hdv3Product3FooterBarrID&quot; &gt;
+&lt;div class=&quot;ss-block-inner-new&quot;&gt;
+&lt;span class=&quot;ss-block-title&quot; &gt;Your-App.com&lt;/span&gt;
+&lt;!-- buy now --&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App&amp;e=com&quot; class=&quot;btn&quot; style=&quot;margin-bottom:5px; padding-right:30px; height:50px; &quot; id=&quot;hdv3Billboard184BuyID&quot; onClick=&quot;$(&apos;#hdv3Billboard184BuyID&apos;).addClass(&apos;hiddenAtLoad&apos;); $(&apos;#hdv3Billboard184BuyProceID&apos;).removeClass(&apos;hiddenAtLoad&apos;); landerFunc9A0ABB2D12D74CEB94624268229421E9Func(); return false;&quot;&gt;&amp;rtrif; Buy now&lt;/a&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv3Billboard184BuyProceID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; min-width:30px; margin-top:0px; margin-bottom:5px; display:block;&quot; &gt;&lt;!--Processing--&gt;
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;!-- payment plan p4/4 --&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&quot; class=&quot;btn bordered-btn&quot; style=&quot;border:3px solid #2aa527; background-color:white; color:#2aa527; height:50px; padding-top:8px; padding-bottom:0px; padding-right:30px; &quot; onclick=&quot;hdv39ADA26CE378541BB87C9F7DA7FE78A7DFunc(); return false;&quot; id=&quot;hdv39ADA26CE378541BB87C9F7DA7FE78A7DLinkID&quot; &gt;&amp;#9656; Start Payment Plan&lt;/a&gt;
+&lt;button type=&quot;button&quot; value=&quot;&quot; id=&quot;hdv39ADA26CE378541BB87C9F7DA7FE78A7DProcID&quot; class=&quot; place-order-btn paymentpay-accaunt-content-btn btn hiddenAtLoad&quot; onclick=&quot;return false;&quot; style=&quot;height:50px; margin-left:0px; margin-top:0px; width:100%;&quot; &gt;&lt;!--Processing--&gt;
+&lt;div class=&quot;circularJ&quot;&gt;
+&lt;div class=&quot;circularJ_1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_3&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_4&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_5&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_6&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_7&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;circularJ_8&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/button&gt;
+&lt;script&gt;
+function hdv39ADA26CE378541BB87C9F7DA7FE78A7DFunc() {
+$(&apos;#hdv39ADA26CE378541BB87C9F7DA7FE78A7DLinkID&apos;).addClass(&apos;hiddenAtLoad&apos;);
+$(&apos;#hdv39ADA26CE378541BB87C9F7DA7FE78A7DProcID&apos;).removeClass(&apos;hiddenAtLoad&apos;);
+/* reset the button */
+window.addEventListener(&quot;unload&quot;, function(event) {
+$(&apos;#hdv39ADA26CE378541BB87C9F7DA7FE78A7DLinkID&apos;).removeClass(&apos;hiddenAtLoad&apos;);
+$(&apos;#hdv39ADA26CE378541BB87C9F7DA7FE78A7DProcID&apos;).addClass(&apos;hiddenAtLoad&apos;);
+});
+window.addEventListener(&quot;pageshow&quot;, function(event) {
+if (event.persisted) {
+}
+$(&apos;#hdv39ADA26CE378541BB87C9F7DA7FE78A7DLinkID&apos;).removeClass(&apos;hiddenAtLoad&apos;);
+$(&apos;#hdv39ADA26CE378541BB87C9F7DA7FE78A7DProcID&apos;).addClass(&apos;hiddenAtLoad&apos;);
+});
+window.location.href = &apos;https://www.hugeDomains.com/payment-plan-setup.cfm?d=Your-App.com&apos;;
+return false;
+}
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- LL: 191 , 191 --&gt;
+&lt;form action=&quot;https://www.hugeDomains.com/shopping_cart.cfm?d=Your-App.com&quot; method=&quot;post&quot; id=&quot;landerForm9A0ABB2D12D74CEB94624268229421E9ID&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;cartCheck&quot; value=&quot;0&quot; id=&quot;landerForm9A0ABB2D12D74CEB94624268229421E9CheckID&quot;&gt;
+&lt;/form&gt;
+&lt;script&gt;
+function landerFunc9A0ABB2D12D74CEB94624268229421E9Func() {
+document.getElementById(&apos;landerForm9A0ABB2D12D74CEB94624268229421E9CheckID&apos;).value = 42;
+document.getElementById(&apos;landerForm9A0ABB2D12D74CEB94624268229421E9ID&apos;).submit();
+}
+&lt;/script&gt;
+&lt;script&gt;
+gtag(&apos;event&apos;, &apos;view_item&apos;, {
+&quot;items&quot;: [
+{
+&quot;name&quot;: &quot;Your-App.com&quot;,
+&quot;list_name&quot;: &quot;Product Page&quot;,
+&quot;quantity&quot;: 1,
+&quot;price&quot;: &apos;1595&apos;
+}
+]
+});
+&lt;/script&gt;
+&lt;div class=&quot;fab-btn-wrap&quot;&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/contact.cfm&quot; class=&quot;fab-btn modal-trigger&quot; data-modal=&quot;contact-form-modal&quot; id=&quot;fabButtonIconLinkID&quot; aria-label=&quot;Contact HugeDomains with our FAB Icon&quot; &gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/mail-icon.png&quot; alt=&quot;&quot; id=&quot;fabButtonIconID&quot;&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var fabButtonIconLinkExists = document.getElementById(&apos;fabButtonIconLinkID&apos;);
+if (typeof(fabButtonIconLinkExists) != &apos;undefined&apos; &amp;&amp; fabButtonIconLinkExists != null)
+{
+document.getElementById(&apos;fabButtonIconLinkID&apos;).addEventListener(&quot;click&quot;, function(){
+figureOutFab();
+});
+}
+function figureOutFab() {
+$(&apos;#fabButtonPopopOuterDivID&apos;).load(&quot;https://www.hugeDomains.com/rjs/hdv3-rjs/contact.cfm&quot;, function() { $(&apos;#fabButtonPopopHeadID&apos;).html(&apos;Email us&apos;); $(&apos;#fabButtonPopopErrorDivID&apos;).hide(); $(&apos;#hdv3FabContactSubjectID&apos;).val(&apos;Your-App.com&apos;); $(&apos;#hdv3FabContactSubjectRowID&apos;).hide(); figureOutFabContactDried = 0; figureOutFabContactDoubleDown = 0; figureOutFabContactDdp = 0; $(&apos;#hdv3FabContactNameID&apos;).focus(); } );
+}
+&lt;/script&gt;
+&lt;div class=&quot;contact-modal modal&quot; data-modal=&quot;contact-form-modal&quot; id=&quot;hdv3FabPopupDivOuterID&quot;&gt;
+&lt;div class=&quot;modal-header&quot;&gt;
+&lt;span class=&quot;head&quot; id=&quot;fabButtonPopopHeadID&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;close-modal js-modal-close&quot; tabindex=&quot;-1&quot; id=&quot;hdv3FabPopupDivCloseID&quot; &gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;div class=&quot;modal-content hass-errore&quot; id=&quot;fabButtonPopopOuterDivID&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/main&gt;
+&lt;footer id=&quot;footer&quot;&gt;
+&lt;div class=&quot;container &quot;&gt;
+&lt;div class=&quot;d-flex footer-links jc-between threeColFooterNav&quot;&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;h4 class=&quot;font24 colorWhite&quot;&gt;Shop&lt;/h4&gt;
+&lt;ul class=&quot;footer-menu&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/index.cfm&quot; class=&quot;link whiteLink&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/categories.cfm&quot; class=&quot;link whiteLink&quot;&gt;Categories&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/payment-plans.cfm&quot; class=&quot;link whiteLink&quot;&gt;Payment plans&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/payment-plan-login.cfm&quot; class=&quot;link whiteLink&quot;&gt;My account&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;h4 class=&quot;font24 colorWhite&quot;&gt;Safe and secure&lt;/h4&gt;
+&lt;ul class=&quot;footer-menu&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/satisfaction_guaranteed.cfm&quot; class=&quot;link whiteLink&quot;&gt;Money back guarantee&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/escrow.cfm&quot; class=&quot;link whiteLink&quot;&gt;Escrow.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/namebright.cfm&quot; class=&quot;link whiteLink&quot;&gt;NameBright.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/testimonials.cfm&quot; class=&quot;link whiteLink&quot;&gt;Testimonials&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;h4 class=&quot;font24 colorWhite&quot;&gt;Helpful Tips&lt;/h4&gt;
+&lt;ul class=&quot;footer-menu&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/buying_guide.cfm&quot; class=&quot;link whiteLink&quot;&gt;Buying guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/case-studies.cfm&quot; class=&quot;link whiteLink&quot;&gt;Case studies&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/faq.cfm&quot; class=&quot;link whiteLink&quot;&gt;FAQs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;col&quot;&gt;
+&lt;h4 class=&quot;font24 colorWhite&quot;&gt;About us&lt;/h4&gt;
+&lt;ul class=&quot;footer-menu&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/about.cfm&quot; class=&quot;link whiteLink&quot;&gt;Overview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/contact.cfm&quot; class=&quot;link whiteLink&quot;&gt;Contact us&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/terms.cfm&quot; class=&quot;link whiteLink&quot;&gt;Terms and conditions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.hugeDomains.com/privacy_policy.cfm&quot; class=&quot;link whiteLink&quot;&gt;Privacy policy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;d-flex badge-row ai-center threeColFooterNavLogos&quot; &gt;
+&lt;div class=&quot;d-flex jc-center threeColFooterNavLogo1&quot;&gt;&lt;a href=&quot;https://www.hugeDomains.com/buying_guide.cfm&quot; aria-label=&quot;Explore the HugeDomains buying guides to learn about .com domains&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/footer-logo-1.png&quot; alt=&quot;&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;d-flex jc-center threeColFooterNavLogo2&quot;&gt;&lt;a href=&quot;https://www.hugeDomains.com/namebright.cfm&quot; aria-label=&quot;NameBright.com is a HugeDomains partner&quot; &gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/footer-logo-2.png&quot; alt=&quot;&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&quot;d-flex jc-center threeColFooterNavLogo3&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/footer-logo-3.png&quot; alt=&quot;&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;d-flex jc-center threeColFooterNavLogo4&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/footer-logo-4.png&quot; alt=&quot;&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;d-flex jc-center threeColFooterNavLogo5&quot;&gt;&lt;a href=&quot;https://www.hugeDomains.com/escrow.cfm&quot; aria-label=&quot;Escrow.com is a HugeDomains partner&quot;&gt;&lt;img src=&quot;https://static.hugedomains.com/images/hdv3-img/footer-logo-5.png&quot; alt=&quot;&quot; border=&quot;0&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;text-center&quot;&gt;
+&lt;span class=&quot;cta font24&quot;&gt;Talk to a domain expert: &lt;a href=&quot;tel:1-303-893-0552&quot; class=&quot;link&quot;&gt;+1-303-893-0552&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;p class=&quot;copyright text-center&quot;&gt;&amp;copy; 2026 HugeDomains.com. All rights reserved.&lt;/p&gt;
+&lt;a href=&quot;https://www.hugeDomains.com/more-info.cfm&quot; tabindex=&quot;-1&quot; aria-label=&quot;more.&quot; &gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;/footer&gt;
+&lt;script src=&quot;https://www.google.com/recaptcha/enterprise.js?render=6LdRB9UiAAAAABaf3jRLyU_gwaGIp-3OvR51myRx&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://static.hugedomains.com/js/hdv3-js/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://static.hugedomains.com/js/hdv3-js/script.js?aa=2022-10-32&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://static.hugedomains.com/js/hdv3-js/common.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://static.hugedomains.com/js/hdv3-js/hd-js.js?a=20250312&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://www.hugeDomains.com/rjs/hdv3-rjs/hd-js.cfm?aa=2022-10-32&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+/* shopping cart number */
+cartJs = readCookie(&apos;SHOPPINGCART&apos;);
+if ((cartJs == &apos;&apos;) || (cartJs == &apos;%2C&apos;) || (cartJs == &apos;,&apos;)) {
+/* empty */
+$(&apos;#hdv3HeaderCartIconDivID&apos;).addClass(&apos;empty-cart&apos;);
+} else if (cartJs !== null) {
+cartItems = readCookie(&apos;SHOPPINGCART&apos;).split(&quot;%2C&quot;);
+$(&apos;#hdv3HeaderCartIconDivID&apos;).removeClass(&apos;empty-cart&apos;);
+$(&apos;#hdv3CartNumberSpanID&apos;).removeClass(&apos;hiddenAtLoad&apos;);
+$(&apos;#hdv3CartNumberSpanID&apos;).html(cartItems.length);
+}
+domainNumberFavorite(&apos;hdv3FavNumberSpanID&apos;);
+&lt;/script&gt;
+&lt;script&gt;
+domainHurryProductThree(&apos;Your-App.com&apos;);
+domainStarredFavorite(&apos;Your-App.com&apos;, &apos;hdv3ProductFavoriteHeartID&apos; );
+$(function() {
+var wv = $(window).outerWidth();
+if (wv &gt; 768) {
+var $window = $(window);
+var $sidebar = $(&quot;.ss-block-inner&quot;);
+var $sidebarTop = $sidebar.position().top ;
+var $sidebarHeight = $sidebar.height();
+var $footer = $(&apos;#footer&apos;);
+var $footerTop = $footer.position().top;
+var $footerTop = $footerTop - 85;
+$window.scroll(function(event) {
+$sidebar.addClass(&quot;fixed&quot;);
+var $scrollTop = $window.scrollTop();
+var $topPosition = Math.max(85, $sidebarTop - $scrollTop);
+var $maindiv = $(&quot;.site-main&quot;);
+var $maindivTop = $maindiv.position().top;
+var $maindivTop = $maindivTop - 85;
+/* qqq */
+/* required */
+if ($scrollTop + $sidebarHeight &gt; $footerTop ) {
+var $topPosition = Math.min($topPosition, $footerTop - $scrollTop - $sidebarHeight );
+}
+if ( false == $( &quot;header#header&quot; ).hasClass( &quot;fixed-header&quot; ) ) {
+if ($topPosition == 85) {
+$topPosition = 140; /* 140 org */
+}
+if (140 &gt; $topPosition) {
+$topPosition = 140; /* 140 org */
+}
+}
+$sidebar.css(&quot;top&quot;, $topPosition );
+});
+}
+});
+$(window).scroll(function () {
+if ( $(&apos;.hdv3pitch&apos;).length ) {
+var offset = $(&quot;.hdv3pitch&quot;).offset();
+var w = $(window);
+var ww = offset.top-w.scrollTop();
+if ( ww &gt; 85) {
+$(&apos;#hdv3Product3FooterBarrID&apos;).addClass(&apos;hiddenAtLoad&apos;);
+} else if ( ww &lt;= 85) {
+$(&apos;#hdv3Product3FooterBarrID&apos;).removeClass(&apos;hiddenAtLoad&apos;);
+}
+} else {
+$(&apos;#hdv3Product3FooterBarrID&apos;).removeClass(&apos;hiddenAtLoad&apos;);
+}
+});
+&lt;/script&gt;
+&lt;!-- All rights reserved. --&gt;
+&lt;script&gt;(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement(&apos;script&apos;);d.innerHTML=&quot;window.__CF$cv$params={r:&apos;9e1e0f08aa2f9621&apos;,t:&apos;MTc3NDQ0MzIwOQ==&apos;};var a=document.createElement(&apos;script&apos;);a.src=&apos;/cdn-cgi/challenge-platform/scripts/jsd/main.js&apos;;document.getElementsByTagName(&apos;head&apos;)[0].appendChild(a);&quot;;b.getElementsByTagName(&apos;head&apos;)[0].appendChild(d)}}if(document.body){var a=document.createElement(&apos;iframe&apos;);a.height=1;a.width=1;a.style.position=&apos;absolute&apos;;a.style.top=0;a.style.left=0;a.style.border=&apos;none&apos;;a.style.visibility=&apos;hidden&apos;;document.body.appendChild(a);if(&apos;loading&apos;!==document.readyState)c();else if(window.addEventListener)document.addEventListener(&apos;DOMContentLoaded&apos;,c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);&apos;loading&apos;!==document.readyState&amp;&amp;(document.onreadystatechange=e,c())}}}})();&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+] to contain [UP] expected [true] but found [false]
+	at utils.CustomAssert.assertContains(CustomAssert.java:242)
+	at utils.ResponseValidator.assertBodyContains(ResponseValidator.java:292)
+	at stepdefinitions.ApiSteps.theResponseBodyShouldContain(ApiSteps.java:160)
+	at ✽.the response body should contain &quot;UP&quot;(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/api.feature:137)
+... Removed 3 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m5">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Successful login with valid standard user credentials&quot;</td><td>&quot;User Login&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">org.openqa.selenium.TimeoutException: Element not visible after 10s: [By.id: username]
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:99)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iLoginAs(LoginSteps.java:93)
+	at ✽.I login as &quot;standard&quot;(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/login.feature:41)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: username (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.21.0&apos;, revision: &apos;79ed462ef4&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;x86_64&apos;, os.version: &apos;15.6&apos;, java.version: &apos;25.0.1&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 146.0.7680.164, chrome: {chromedriverVersion: 146.0.7680.165 (4b989da09e1..., userDataDir: /var/folders/w2/67mk25c54mj...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:53329}, goog:processID: 60928, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:53329/devtoo..., se:cdpVersion: 146.0.7680.164, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 6b662d3e12ca08e0f493b6f07d6369eb
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:96)
+	at utils.WaitUtils.waitForVisible(WaitUtils.java:89)
+	at pages.BasePage.type(BasePage.java:229)
+	at pages.LoginPage.enterUsername(LoginPage.java:67)
+	at pages.LoginPage.login(LoginPage.java:98)
+	at pages.LoginPage.loginAs(LoginPage.java:116)
+	at stepdefinitions.LoginSteps.iLoginAs(LoginSteps.java:93)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+... Removed 9 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m6">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Admin user exists in the database&quot;</td><td>&quot;Database Validation&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">java.lang.RuntimeException: Failed to connect to DB: [jdbc:mysql://localhost:3306/your_dev_db]
+Error: Access denied for user &apos;dev_user&apos;@&apos;localhost&apos; (using password: YES)
+	at utils.DBUtils.createConnection(DBUtils.java:466)
+	at utils.DBUtils.getConnection(DBUtils.java:103)
+	at hooks.Hooks.beforeDbScenario(Hooks.java:144)
+Caused by: java.sql.SQLException: Access denied for user &apos;dev_user&apos;@&apos;localhost&apos; (using password: YES)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:113)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:861)
+	at com.mysql.cj.jdbc.ConnectionImpl.&lt;init&gt;(ConnectionImpl.java:449)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:234)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
+	at utils.DBUtils.createConnection(DBUtils.java:451)
+	at utils.DBUtils.getConnection(DBUtils.java:103)
+	at hooks.Hooks.beforeDbScenario(Hooks.java:144)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaHookDefinition.execute(JavaHookDefinition.java:64)
+	at io.cucumber.core.runner.CoreHookDefinition.execute(CoreHookDefinition.java:46)
+	at io.cucumber.core.runner.HookDefinitionMatch.runStep(HookDefinitionMatch.java:21)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:78)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+... Removed 9 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m7">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;Admin user data matches expected values from test data file&quot;</td><td>&quot;Database Validation&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">java.lang.RuntimeException: Failed to connect to DB: [jdbc:mysql://localhost:3306/your_dev_db]
+Error: Access denied for user &apos;dev_user&apos;@&apos;localhost&apos; (using password: YES)
+	at utils.DBUtils.createConnection(DBUtils.java:466)
+	at utils.DBUtils.getConnection(DBUtils.java:103)
+	at hooks.Hooks.beforeDbScenario(Hooks.java:144)
+Caused by: java.sql.SQLException: Access denied for user &apos;dev_user&apos;@&apos;localhost&apos; (using password: YES)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:113)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:861)
+	at com.mysql.cj.jdbc.ConnectionImpl.&lt;init&gt;(ConnectionImpl.java:449)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:234)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:180)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
+	at utils.DBUtils.createConnection(DBUtils.java:451)
+	at utils.DBUtils.getConnection(DBUtils.java:103)
+	at hooks.Hooks.beforeDbScenario(Hooks.java:144)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaHookDefinition.execute(JavaHookDefinition.java:64)
+	at io.cucumber.core.runner.CoreHookDefinition.execute(CoreHookDefinition.java:46)
+	at io.cucumber.core.runner.HookDefinitionMatch.runStep(HookDefinitionMatch.java:21)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:81)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:53)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:78)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:136)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:136)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at io.cucumber.testng.AbstractTestNGCucumberTests.runScenario(AbstractTestNGCucumberTests.java:35)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+... Removed 9 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m8">runners.SmokeTestRunner#runScenario</h3><table class="result"><tr class="param"><th>Parameter #1</th><th>Parameter #2</th></tr><tr class="param stripe"><td>&quot;GET users returns 200 with data array&quot;</td><td>&quot;REST API&quot;</td></tr><tr><th colspan="2">Exception</th></tr><tr><td colspan="2"><div class="stacktrace">java.lang.AssertionError: Expected HTTP status [200] but received [404] expected [200] but found [404]
+	at utils.CustomAssert.assertStatusCode(CustomAssert.java:354)
+	at utils.ResponseValidator.assertStatusCode(ResponseValidator.java:93)
+	at stepdefinitions.ApiSteps.iAmAuthenticatedAs(ApiSteps.java:61)
+	at ✽.I am authenticated as &quot;admin&quot;(file:///Users/jok208/selenium-hybrid-template/src/test/resources/features/api.feature:70)
+... Removed 6 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+</body>
+</html>

@@ -448,7 +448,7 @@ public class DBUtils {
             log.info("Connecting to DB → URL: [{}] | User: [{}]", url, username);
 
             // Open the connection
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = java.sql.DriverManager.getConnection(url, username, password);
             conn.setAutoCommit(true);
 
             log.info("DB connection established for thread [{}]",

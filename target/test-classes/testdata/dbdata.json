@@ -1,0 +1,77 @@
+{
+  "_comment": "=================================================================",
+  "_comment1": "FILE: dbdata.json",
+  "_comment2": "PURPOSE: Expected database values and named SQL queries.",
+  "_comment3": "         Accessed via TestDataLoader.getDbExpectedValue() and",
+  "_comment4": "         TestDataLoader.getDbQuery() in DB step definitions.",
+  "_comment5": "TODO: Replace all values with your schema and expected data.",
+  "_comment6": "=================================================================",
+
+  "tables": {
+    "_comment": "TODO: Replace with your actual table names",
+    "users":     "users",
+    "products":  "products",
+    "orders":    "orders"
+  },
+
+  "queries": {
+    "_comment": "TODO: Replace with SQL queries that match your schema.",
+    "_comment2": "Use ? as placeholder for parameterised values (JDBC standard).",
+
+    "findUserByEmail":
+    "SELECT * FROM users WHERE email = ?",
+
+    "findUserByUsername":
+    "SELECT * FROM users WHERE username = ?",
+
+    "countUsers":
+    "SELECT COUNT(*) FROM users",
+
+    "findActiveUsers":
+    "SELECT * FROM users WHERE active = 1",
+
+    "findUserById":
+    "SELECT * FROM users WHERE id = ?",
+
+    "findProductByName":
+    "SELECT * FROM products WHERE name = ?",
+
+    "countOrders":
+    "SELECT COUNT(*) FROM orders WHERE user_id = ?"
+  },
+
+  "expectedValues": {
+    "_comment": "TODO: Replace with expected DB column values for your test data",
+
+    "users": {
+      "admin": {
+        "email":     "admin@yourapp.com",
+        "username":  "admin@yourapp.com",
+        "role":      "ADMIN",
+        "active":    "1",
+        "firstName": "Admin",
+        "lastName":  "User"
+      },
+      "standard": {
+        "email":     "user@yourapp.com",
+        "username":  "user@yourapp.com",
+        "role":      "USER",
+        "active":    "1"
+      }
+    },
+
+    "products": {
+      "_comment": "TODO: Add expected product data for your DB tests",
+      "sampleProduct": {
+        "name":     "Sample Product",
+        "active":   "1"
+      }
+    }
+  },
+
+  "rowCounts": {
+    "_comment": "TODO: Set expected minimum row counts for smoke/sanity checks",
+    "users":    1,
+    "products": 0
+  }
+}

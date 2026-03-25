@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  FILE: extent-config.xml
+  LOCATION: src/test/resources/extent-config.xml
+
+  PURPOSE:
+    Visual and content configuration for the Extent HTML
+    (Spark) report. Controls theme, title, encoding, and
+    timestamp format. Loaded by ExtentReportManager at
+    report creation time.
+
+    If this file is present, it takes full control of the
+    reporter configuration. If missing, ExtentReportManager
+    falls back to its programmatic defaults.
+
+  HOW TO USE:
+    No code changes needed — edit values here and re-run.
+    ExtentReportManager.java loads this file automatically:
+      reporter.loadXMLConfig("src/test/resources/extent-config.xml");
+
+  TODO (customise per project):
+    - TODO-1 : Change <reportName> to your project name
+    - TODO-2 : Change <documentTitle> to match your project
+    - TODO-3 : Change <theme> to STANDARD for a light theme
+    - TODO-4 : Add <css> block to override specific styles
+               e.g. company brand colours
+    - TODO-5 : Add <js> block if you need custom report behaviour
+  ============================================================
+-->
+
+<extentreports>
+
+    <configuration>
+
+        <!-- ── Report identity ──────────────────────────────────
+             TODO-1: Replace with your project name
+             TODO-2: Replace with your preferred browser tab title
+        ──────────────────────────────────────────────────────── -->
+
+        <!-- Title shown in the report header -->
+        <reportName>Selenium Hybrid Framework — Test Results</reportName>
+
+        <!-- Browser tab / window title -->
+        <documentTitle>Automation Test Report</documentTitle>
+
+
+        <!-- ── Visual theme ─────────────────────────────────────
+             Options: DARK | STANDARD
+             DARK    → dark background, light text (default)
+             STANDARD → white background, dark text
+             TODO-3: Change to STANDARD for a light theme
+        ──────────────────────────────────────────────────────── -->
+        <theme>DARK</theme>
+
+
+        <!-- ── Encoding ─────────────────────────────────────────
+             Always UTF-8 — supports special characters in test
+             names, step descriptions, and error messages
+        ──────────────────────────────────────────────────────── -->
+        <encoding>UTF-8</encoding>
+
+
+        <!-- ── Timestamp format ──────────────────────────────────
+             Shown on each test node in the report.
+             Uses Java SimpleDateFormat pattern.
+        ──────────────────────────────────────────────────────── -->
+        <timeStampFormat>yyyy-MM-dd HH:mm:ss</timeStampFormat>
+
+
+        <!-- ── Timeline ─────────────────────────────────────────
+             Shows a visual timeline of test execution order.
+             Particularly useful for parallel test runs.
+        ──────────────────────────────────────────────────────── -->
+        <enableTimeline>true</enableTimeline>
+
+
+        <!-- ── Offline mode ─────────────────────────────────────
+             true  → all CSS/JS embedded in the HTML file
+                     (report works without internet — recommended for CI)
+             false → CSS/JS loaded from CDN
+                     (smaller file but requires internet to view)
+        ──────────────────────────────────────────────────────── -->
+        <offlineMode>false</offlineMode>
+
+
+        <!-- ── Custom CSS ────────────────────────────────────────
+             Override specific Extent report styles here.
+             Useful for applying company brand colours or
+             adjusting font sizes.
+
+             TODO-4: Uncomment and update with your brand colours
+        ──────────────────────────────────────────────────────── -->
+        <!--
+        <css>
+          .brand-logo { display: none; }
+          .report-name { color: #0078D4; }
+          .pass .label { background-color: #107C10 !important; }
+          .fail .label { background-color: #A4262C !important; }
+        </css>
+        -->
+
+
+        <!-- ── Custom JavaScript ─────────────────────────────────
+             Add custom JS behaviour to the report here.
+             TODO-5: Uncomment and add custom JS if needed
+        ──────────────────────────────────────────────────────── -->
+        <!--
+        <js>
+          document.title = 'My Project Test Report';
+        </js>
+        -->
+
+    </configuration>
+
+</extentreports>

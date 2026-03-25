@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ============================================================
+  FILE: logback.xml
+  LOCATION: src/test/resources/logback.xml
+
+  PURPOSE:
+    Configures Logback as the SLF4J logging backend for the
+    entire framework. Controls log format, log levels, and
+    where logs are written (console and/or rolling file).
+
+  HOW TO USE:
+    - Logback picks this file up automatically from the classpath
+    - Use LogUtil.java to get a logger in any class:
+        private static final Logger log = LogUtil.getLogger(MyClass.class);
+    - Change log level at runtime without touching this file:
+        mvn test -Dlog.level=DEBUG
+
+  LOG LEVELS (most → least verbose):
+    TRACE → DEBUG → INFO → WARN → ERROR
+
+  TODO (customise per project):
+    - TODO-1 : Change the log file path/name to match your project
+    - TODO-2 : Adjust root log level (INFO is recommended for CI)
+    - TODO-3 : Add package-level overrides for noisy third-party libs
+    - TODO-4 : Toggle file appender on/off for local vs CI runs
+  ============================================================
+-->
+<configuration>
+
+    <!-- ── Properties ────────────────────────────────────────────
+         Define reusable values here so they are easy to change.
+         These can also be overridden via JVM system properties:
+           -Dlog.level=DEBUG  -Dlog.path=target/logs
+    ──────────────────────────────────────────────────────────── -->
+
+    <!-- TODO-2: Change to DEBUG locally for verbose output, INFO for CI -->
+    <property name="LOG_LEVEL"    value="${log.level:-INFO}" />
+
+    <!-- TODO-1: Change log directory and filename to match your project -->
+    <property name="LOG_PATH"     value="${log.path:-target/logs}" />
+    <property name="LOG_FILE"     value="${LOG_PATH}/framework.log" />
+    <property name="ARCHIVE_FILE" value="${LOG_PATH}/archived/framework-%d{yyyy-MM-dd}.%i.log" />
+
+    <!-- Max size per log file before it rolls over -->
+    <property name="MAX_FILE_SIZE"    value="10MB" />
+    <!-- How many days of log files to keep -->
+    <property name="MAX_HISTORY_DAYS" value="7" />
+    <!-- Total cap across all archived files -->
+    <property name="TOTAL_SIZE_CAP"   value="100MB" />
+
+
+    <!-- ── Patterns ──────────────────────────────────────────────
+         %d        → timestamp
+         %p        → log level (INFO, DEBUG, etc.)
+         %-5p      → level padded to 5 chars for alignment
+         %t        → thread name (important for parallel runs)
+         %logger{36} → class name, abbreviated to 36 chars
+         %msg      → the log message
+         %n        → newline
+         %ex       → exception stack trace (if present)
+    ──────────────────────────────────────────────────────────── -->
+
+    <!-- Console pattern — coloured for easy reading locally -->
+    <property name="CONSOLE_PATTERN"
+              value="%d{HH:mm:ss.SSS} %highlight(%-5p) [%cyan(%t)] %yellow(%logger{36}) - %msg%n%ex" />
+
+    <!-- File pattern — plain text, no colour codes -->
+    <property name="FILE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p [%t] %logger{36} - %msg%n%ex" />
+
+
+    <!-- ── Appender 1: Console ────────────────────────────────────
+         Writes all logs to stdout.
+         Always active — shows logs in IDE and CI build output.
+    ──────────────────────────────────────────────────────────── -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- ── Appender 2: Rolling File ──────────────────────────────
+         Writes logs to a file that rolls daily and by size.
+         TODO-4: Comment out this entire appender block if you
+                 do not want file logging in your project.
+    ──────────────────────────────────────────────────────────── -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!-- Current active log file -->
+        <file>${LOG_FILE}</file>
+
+        <!-- Roll over daily and when file exceeds MAX_FILE_SIZE -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${ARCHIVE_FILE}</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY_DAYS}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${FILE_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+    </appender>
+
+
+    <!-- ── Async wrapper for FILE appender ───────────────────────
+         Wraps the file appender in an async queue so logging
+         never blocks test execution threads.
+         Queue size of 512 handles parallel test runs comfortably.
+    ──────────────────────────────────────────────────────────── -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <!-- Never discard WARN/ERROR messages even if queue is 80% full -->
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="FILE" />
+    </appender>
+
+
+    <!-- ── Package-level overrides ───────────────────────────────
+         Suppress noisy output from third-party libraries.
+         Add your own suppressions for any library that spams logs.
+         TODO-3: Add more package suppressions if needed.
+    ──────────────────────────────────────────────────────────── -->
+
+    <!-- Selenium internals — very noisy at DEBUG -->
+    <logger name="org.openqa.selenium"         level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+    <!-- WebDriverManager download messages -->
+    <logger name="io.github.bonigarcia"        level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+    <!-- RestAssured HTTP wire logging — set to INFO to see request/response -->
+    <logger name="io.restassured"              level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+    <!-- Apache HttpClient used internally by RestAssured -->
+    <logger name="org.apache.http"             level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+    <!-- Cucumber reporting internals -->
+    <logger name="io.cucumber"                 level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+    <!-- Extent Reports internals -->
+    <logger name="com.aventstack"              level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+    <!-- MySQL JDBC driver -->
+    <logger name="com.mysql"                   level="WARN" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+
+    <!-- ── Framework logger ──────────────────────────────────────
+         Your own framework code lives under com.yourorg.
+         TODO-1: Change this package to match your groupId in pom.xml
+         Example: com.yourcompany, com.acme, org.example
+    ──────────────────────────────────────────────────────────── -->
+    <logger name="com.yourorg" level="${LOG_LEVEL}" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </logger>
+
+
+    <!-- ── Root logger ───────────────────────────────────────────
+         Catches everything not matched by a named logger above.
+         TODO-2: Keep at INFO or WARN for CI to avoid log noise.
+    ──────────────────────────────────────────────────────────── -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="ASYNC_FILE" />
+    </root>
+
+</configuration>
