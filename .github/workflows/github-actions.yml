@@ -43,7 +43,7 @@ env:
   # TODO-1: Update to match your JDK version
   JAVA_VERSION: '25'
   JAVA_DISTRIBUTION: 'temurin'
-  MAVEN_OPTS: '-Xmx1024m -Dfile.encoding=UTF-8'
+#  MAVEN_OPTS: '-Xmx1024m -Dfile.encoding=UTF-8'
 
 jobs:
 
@@ -62,7 +62,9 @@ jobs:
           cache: maven
 
       - name: Compile project
-        run: mvn test-compile -DskipTests ${{ env.MAVEN_OPTS }}
+          env:
+            MAVEN_OPTS: "-Xmx1024m -Dfile.encoding=UTF-8"
+          run: mvn test-compile -DskipTests
 
 
   # ── Smoke Tests ────────────────────────────────────────────
@@ -87,15 +89,16 @@ jobs:
           sudo apt-get update && sudo apt-get install -y google-chrome-stable
 
       - name: Run Smoke Tests
-        run: |
-          mvn test \
-            -Dtest=SmokeTestRunner \
-            -Dbrowser=headless \
-            -Denv=dev \
-            -DDB_URL=${{ secrets.DB_URL }} \
-            -DDB_USER=${{ secrets.DB_USER }} \
-            -DDB_PASS=${{ secrets.DB_PASS }} \
-            ${{ env.MAVEN_OPTS }}
+          env:
+            MAVEN_OPTS: "-Xmx1024m -Dfile.encoding=UTF-8"
+          run: |
+            mvn test \
+              -Dtest=SmokeTestRunner \
+              -Dbrowser=headless \
+              -Denv=dev \
+              -DDB_URL=${{ secrets.DB_URL }} \
+              -DDB_USER=${{ secrets.DB_USER }} \
+              -DDB_PASS=${{ secrets.DB_PASS }}
 
       - name: Publish Cucumber Report
         uses: actions/upload-artifact@v4
