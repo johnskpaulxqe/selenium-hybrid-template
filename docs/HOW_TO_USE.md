@@ -84,7 +84,6 @@ Open `src/test/resources/config.json` and replace all placeholder values:
 
 **Security rule:** Never commit real passwords. For CI, use `$DB_PASS` as the value and inject it via environment variables.
 
-Great question. Here's how it works end to end.
 
 ---
 
