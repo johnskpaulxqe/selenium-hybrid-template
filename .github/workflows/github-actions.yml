@@ -62,9 +62,9 @@ jobs:
           cache: maven
 
       - name: Compile project
-          env:
-            MAVEN_OPTS: "-Xmx1024m -Dfile.encoding=UTF-8"
-          run: mvn test-compile -DskipTests
+        env:
+          MAVEN_OPTS: "-Xmx1024m -Dfile.encoding=UTF-8"
+        run: mvn test-compile -DskipTests
 
 
   # ── Smoke Tests ────────────────────────────────────────────
@@ -89,16 +89,16 @@ jobs:
           sudo apt-get update && sudo apt-get install -y google-chrome-stable
 
       - name: Run Smoke Tests
-          env:
-            MAVEN_OPTS: "-Xmx1024m -Dfile.encoding=UTF-8"
-          run: |
-            mvn test \
-              -Dtest=SmokeTestRunner \
-              -Dbrowser=headless \
-              -Denv=dev \
-              -DDB_URL=${{ secrets.DB_URL }} \
-              -DDB_USER=${{ secrets.DB_USER }} \
-              -DDB_PASS=${{ secrets.DB_PASS }}
+        env:
+          MAVEN_OPTS: "-Xmx1024m -Dfile.encoding=UTF-8"
+        run: |
+          mvn test \
+            -Dtest=SmokeTestRunner \
+            -Dbrowser=headless \
+            -Denv=dev \
+            -DDB_URL=${{ secrets.DB_URL }} \
+            -DDB_USER=${{ secrets.DB_USER }} \
+            -DDB_PASS=${{ secrets.DB_PASS }}
 
       - name: Publish Cucumber Report
         uses: actions/upload-artifact@v4
