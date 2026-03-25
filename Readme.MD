@@ -361,7 +361,7 @@ When you clone this template, work through this checklist:
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on raising issues, submitting PRs, and the branching strategy.
+See [CONTRIBUTING.md](https://github.com/johnskpaulxqe/selenium-hybrid-template?tab=contributing-ov-file#) for guidelines on raising issues, submitting PRs, and the branching strategy.
 
 ---
 
