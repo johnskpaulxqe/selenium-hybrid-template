@@ -84,6 +84,119 @@ Open `src/test/resources/config.json` and replace all placeholder values:
 
 **Security rule:** Never commit real passwords. For CI, use `$DB_PASS` as the value and inject it via environment variables.
 
+Great question. Here's how it works end to end.
+
+---
+
+### The concept
+
+Instead of putting your real password in `config.json`, you put a placeholder starting with `$`:
+
+```json
+"db": {
+  "url":      "$DB_URL",
+  "username": "$DB_USER",
+  "password": "$DB_PASS"
+}
+```
+
+Our `ConfigReader.java` already handles this — when it sees a value starting with `$`, it automatically reads it from the system environment instead:
+
+```java
+// Already in ConfigReader.java resolveEnvVar() method
+if (value.startsWith("$")) {
+    String varName = value.substring(1);       // strips the $
+    return System.getenv(varName);             // reads from environment
+}
+```
+
+---
+
+### Setting it up in each environment
+
+**On your local Mac — set in your `~/.zshrc`:**
+```bash
+export DB_URL=jdbc:mysql://localhost:3306/fredweb_dev
+export DB_USER=your_db_username
+export DB_PASS=your_real_password
+
+# Reload
+source ~/.zshrc
+```
+
+Verify it worked:
+```bash
+echo $DB_PASS
+# should print your password
+```
+
+---
+
+**On GitHub Actions — add as repository secrets:**
+
+1. Go to your repo on GitHub
+2. Click **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret** for each one:
+
+```
+Name:  DB_URL
+Value: jdbc:mysql://your-db-host:3306/fredweb_dev
+
+Name:  DB_USER
+Value: your_db_username
+
+Name:  DB_PASS
+Value: your_real_password
+```
+
+The pipeline already passes them in via `-DDB_URL=${{ secrets.DB_URL }}` in `github-actions.yml` — so nothing else needs changing there.
+
+---
+
+**On Azure DevOps — add as pipeline variables:**
+
+1. Open your pipeline → **Edit** → **Variables**
+2. Add each one and tick **Keep this value secret**:
+```
+DB_URL  = jdbc:mysql://your-db-host:3306/fredweb_dev
+DB_USER = your_db_username
+DB_PASS = your_real_password
+```
+
+---
+
+### So your `config.json` for prod looks like this
+
+```json
+"prod": {
+  "baseUrl":    "https://fredweb.phdl.pitt.edu",
+  "apiBaseUrl": "https://api.fredweb.phdl.pitt.edu",
+  "db": {
+    "url":         "$DB_URL",
+    "username":    "$DB_USER",
+    "password":    "$DB_PASS",
+    "driverClass": "com.mysql.cj.jdbc.Driver"
+  }
+}
+```
+
+This way the file is safe to commit — there are no real credentials in it anywhere.
+
+---
+
+### The flow at runtime
+
+```
+config.json value "$DB_PASS"
+        │
+        ▼
+ConfigReader.resolveEnvVar()
+        │
+        ├── Local Mac   → reads System.getenv("DB_PASS") from ~/.zshrc
+        ├── GitHub CI   → reads from repository secret DB_PASS
+        └── Azure CI    → reads from pipeline variable DB_PASS
+```
+
 ---
 
 ## Step 3 — Configure the Database
